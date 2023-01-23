@@ -1,64 +1,52 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:zevoyi/core/api/api_baseurl.dart';
+import 'package:zevoyi/core/constant/api_queryparameters.dart';
+import 'package:zevoyi/model/token_model/token_model.dart';
+import 'package:zevoyi/utils/app_exceptions.dart';
 import '../../core/api/api_endpoint.dart';
 import '../../model/login_model/login_model.dart';
 
-class LoginServices {
-  Dio dio = Dio();
-  LoginModel? loginModel;
-  Future<LoginModel?> loginUser(LoginModel model, BuildContext context) async {
+class SignInService {
+  final dio = Dio();
+  Future<TokenModel?> login(LoginModel model) async {
     try {
       Response response = await dio.post(
-        ApiBaseUrl().baseUrl + ApiEndpoints.signIn,
-        data: jsonEncode(
-          model.toJson(),
-        ),
+        ApiUrl.apiUrl + ApiEndPoints.login,
+        queryParameters: ApiQueryParameter.queryParameter,
+        data: jsonEncode(model.toJson()),
       );
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        loginModel = LoginModel.fromJson(response.data);
-        log(response.data.toString());
-        const snackBar = SnackBar(
-          backgroundColor: Colors.cyan,
-          content: Text("Login Successfull,"),
-        );
-        ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
-        return loginModel;
-      } else {
-        const snackBar = SnackBar(
-            backgroundColor: Colors.cyan, content: Text("Login Failed"));
-        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      if (response.statusCode == 200) {
+        log(response.data.toString());
+        final TokenModel model = TokenModel.fromJson(response.data);
+        return model;
       }
-    } on DioError catch (e) {
-      const snackBar = SnackBar(
-          backgroundColor: Colors.cyan,
-          content: Text(
-            "email or password incorrect",
-          ));
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-      log(e.message);
+    } catch (e) {
+      AppExceptions.errorHandler(e);
     }
     return null;
   }
-}
- 
- 
- 
- 
-  // Future<void> signIn(String name, String password) async {
-  //   String apiUrl = '$baseUrl/sign-in';
+
+  // Future<String?> googleSignIn(GoogleSignIn googleSignIn) async {
   //   try {
-  //     final Response response =
-  //         await dio.post(apiUrl, data: {'name': name, 'password': password});
-  //     if (response.statusCode == 200 || response.statusCode == 201) {
-  //       // final data = jsonDecode(response.data.toString());
-  //       log(response.data.toString());
-  //       return response.data;
+  //     final result = await googleSignIn.signIn();
+  //     Response response =
+  //         await dio.post(ApiUrl.apiUrl + ApiEndPoints.googleSignIn, data: {
+  //       'email': result?.email,
+  //       'name': result?.displayName,
+  //     });
+  //     log(response.statusCode.toString());
+  //     if (response.statusCode == 201) {
+  //       return response.data['message'];
   //     }
-  //   } on DioError catch (e) {
-  //     log(e.message.toString());
+  //   } catch (e) {
+  //     log('entered catch of googlesignin');
+  //     AppExceptions.errorHandler(e);
   //   }
+  //   return null;
   // }
+}
+
+ 

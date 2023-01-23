@@ -1,12 +1,12 @@
-import 'package:flutter/material.dart';
-import 'package:zevoyi/services/profile_api_service.dart/profile_services.dart';
+// import 'package:flutter/material.dart';
+// import 'package:zevoyi/services/profile_api_service.dart/profile_services.dart';
 
-class ProfileProvider extends ChangeNotifier {
-  bool isLoading = false;
+// class ProfileProvider extends ChangeNotifier {
+//   bool isLoading = false;
 
-  ProflieServices loginServices = ProflieServices();
+//   ProflieServices loginServices = ProflieServices();
 
-  fetch(id) {
-    loginServices.fetch(id);
-  }
-}
+//   fetch(id) {
+//     loginServices.fetch(id);
+//   }
+// }

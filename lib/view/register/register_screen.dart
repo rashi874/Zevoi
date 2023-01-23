@@ -5,7 +5,8 @@ import 'package:zevoyi/view/home/widget/custom_elevatedbutton.dart';
 import 'package:zevoyi/view/login/login_screen.dart';
 import 'package:zevoyi/view/register/widgets/account_have_text.dart';
 import 'package:zevoyi/view/home/widget/custom_textfiled.dart';
-import '../../controller/provider/create_provider.dart';
+import '../../controller/provider/signup_provider.dart';
+import '../../utils/loading_widget.dart';
 
 class RegisterScreen extends StatelessWidget {
   RegisterScreen({super.key});
@@ -14,8 +15,8 @@ class RegisterScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(body: LayoutBuilder(builder: (context, constraints) {
       // constraints.maxHeight * 0.5;
-      return Consumer<CreateAccountProvider>(
-          builder: (BuildContext context, value, _) {
+      return Consumer<SignUpProvider>(
+          builder: (BuildContext context, values, _) {
         return ListView(
           children: [
             SizedBox(
@@ -25,15 +26,24 @@ class RegisterScreen extends StatelessWidget {
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                kbox20,
-                const Text(
-                  'Zevoi',
-                  style: TextStyle(
-                    fontSize: 35,
-                    fontWeight: FontWeight.bold,
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    Text(
+                      'Zevoi',
+                      style: TextStyle(
+                        fontSize: 35,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Icon(
+                      Icons.line_axis,
+                      size: 50,
+                      color: Color.fromARGB(255, 220, 93, 93),
+                    ),
+                  ],
                 ),
-                kbox10,
+                kbox20,
                 Form(
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   key: formKey,
@@ -48,85 +58,65 @@ class RegisterScreen extends StatelessWidget {
                       ),
                       kbox20,
                       CustomTextfiled(
-                        hintText: 'Name',
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter name';
-                          }
-                          return null;
-                        },
-                        eyebutton: null,
+                        controller: values.nameController,
+                        keyboardType: TextInputType.name,
+                        action: TextInputAction.next,
+                        icon: Icons.person,
+                        hint: 'Full name',
                         obscure: false,
-                        controller: value.usernameController,
+                        validator: (value) => values.nameValidation(value),
                       ),
                       CustomTextfiled(
-                        hintText: 'Email',
-                        eyebutton: null,
+                        controller: values.emailController,
+                        keyboardType: TextInputType.emailAddress,
+                        action: TextInputAction.next,
+                        icon: Icons.mail,
+                        hint: 'Email',
                         obscure: false,
-                        controller: value.emailController,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter email';
-                          }
-                          return null;
-                        },
+                        validator: (value) => values.emailValidation(value),
                       ),
                       CustomTextfiled(
-                        hintText: 'Mobile',
-                        eyebutton: null,
+                        controller: values.mobileNumberController,
+                        keyboardType: TextInputType.phone,
+                        action: TextInputAction.next,
+                        icon: Icons.numbers,
+                        hint: 'Mobile number',
                         obscure: false,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter phone number';
-                          }
-                          return null;
-                        },
-                        controller: value.phoneController,
+                        validator: (value) => values.numberValidation(value),
                       ),
                       CustomTextfiled(
-                        hintText: 'Password',
-                        eyebutton: IconButton(
-                          icon: Icon(
-                            // Based on passwordVisible state choose the icon
-                            value.passwordVisible
-                                ? Icons.visibility
-                                : Icons.visibility_off,
-                            color: Theme.of(context).primaryColorDark,
-                          ),
-                          onPressed: () {
-                            value.eyefunction();
-                          },
-                        ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter password';
-                          }
-                          return null;
-                        },
-                        obscure: value.passwordVisible,
-                        controller: value.passwordController,
+                        controller: values.passwordController,
+                        keyboardType: TextInputType.text,
+                        action: TextInputAction.next,
+                        icon: Icons.lock,
+                        hint: 'Password',
+                        obscure: values.isNotVisible,
+                        validator: (value) => values.passwordValidation(value),
+                        suffixIcon: values.isNotVisible == true
+                            ? Icons.visibility_off
+                            : Icons.visibility,
+                        suffixOntap: () => values.passwordHide(),
                       ),
                       CustomTextfiled(
-                        hintText: 'Confirm Password',
-                        obscure: value.passwordVisible,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter confirm password';
-                          }
-                          return null;
-                        },
-                        controller: value.confirmpasswordController,
+                        controller: values.confirmPasswordController,
+                        keyboardType: TextInputType.text,
+                        action: TextInputAction.done,
+                        icon: Icons.lock,
+                        hint: 'Confirm password',
+                        obscure: false,
+                        validator: (value) =>
+                            values.confirmPasswordValidation(value),
                       ),
                       kbox20,
-                      CustomMainButton(
-                        onPressed: () {
-                          if (formKey.currentState!.validate()) {
-                            formKey.currentState!.save();
-                            value.registerUser(context);
-                          }
-                        },
-                        name: 'Register',
-                      ),
+                      values.loading == true
+                          ? const LoadingWidget()
+                          : CustomMainButton(
+                              onPressed: () {
+                                values.toSignUpOtpScreen(
+                                    context, formKey.currentState!);
+                              },
+                              name: 'Register',
+                            ),
                       SizedBox(
                         width: double.infinity,
                         height: MediaQuery.of(context).size.width * 0.2,

@@ -1,4 +1,3 @@
-
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -26,7 +25,7 @@ class BottomloginSignupText extends StatelessWidget {
             TextSpan(
                 text: text2,
                 style: const TextStyle(
-                  color: Color.fromRGBO(136, 215, 170, 1.000),
+                  color: Color.fromARGB(255, 220, 93, 93),
                 ),
                 recognizer: TapGestureRecognizer()
                   ..onTap = () {

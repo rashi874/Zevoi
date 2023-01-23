@@ -10,11 +10,14 @@ const kbox20 = SizedBox(
 const kboxw20 = SizedBox(
   width: 20,
 );
+const kboxw5 = SizedBox(
+  width: 5,
+);
 final List<String> imgList = [
-  'https://theaxo.com/wp-content/uploads/2021/03/Untitled-design-5-1.jpg',
-  'https://gagadget.com/media/post_big/Realme_GT_Master_Edition_and_Realme_GT_Explorer_Master_Edition.png',
-  'https://static.garumax.com/wp-content/uploads/2022/10/28130819/Redmi-Note-12-1.jpg',
-  'https://members.gentingrewards.com/Uploads/Images/Promotions/VQo_iPhone-14-Banner-1.jpg',
+  'https://www.bigcmobiles.com/media/slidebanner/w/h/whatsapp_image_2022-12-16_at_10.18.02_am.jpeg',
+  'https://pisces.bbystatic.com/image2/BestBuy_US/dam/SOL-91600-rainbow-hero-sv_der-33deb27e-3938-4ff5-ab24-73e3758bdf44.jpg',
+  'https://m.media-amazon.com/images/S/aplus-media-library-service-media/0bd1ce80-3ba6-4862-b038-d6fa40d85618.__CR0,0,1464,600_PT0_SX1464_V1___.jpg',
+  'https://images.cnbctv18.com/wp-content/uploads/2022/06/OnePlusNord2T-1019x573.jpg',
   'https://g6j4a6i4.stackpathcdn.com/wp-content/uploads/2021/08/Portada-del-articulo-imagen-principal.jpg',
   'https://www.oppo.com/content/dam/oppo-campaign-site/my/pages/store-pre-openning/oppo-a95-launch/oppo-A95-main-banner-1.jpg'
 ];
@@ -44,9 +47,9 @@ final List<Widget> imageSliders = imgList
                 children: <Widget>[
                   Image.network(item, fit: BoxFit.cover, width: 1000.0),
                   Positioned(
-                    bottom: 0.0,
-                    left: 0.0,
-                    right: 0.0,
+                    bottom: 5.0,
+                    left: 2.0,
+                    right: 3.0,
                     child: Container(
                       decoration: const BoxDecoration(
                         gradient: LinearGradient(
@@ -54,7 +57,7 @@ final List<Widget> imageSliders = imgList
                             Color.fromARGB(200, 0, 0, 0),
                             Color.fromARGB(0, 0, 0, 0)
                           ],
-                          begin: Alignment.topCenter,
+                          begin: Alignment.bottomRight,
                           end: Alignment.topCenter,
                         ),
                       ),

@@ -1,118 +1,84 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:zevoyi/controller/provider/profile_provider.dart';
-import 'package:zevoyi/core/constant/const.dart';
-import 'package:zevoyi/model/profile_model/profile_model.dart';
-import 'package:zevoyi/view/profile/widget/profile_textfield.dart';
+import 'package:zevoyi/helper/colors/app_colors.dart';
+import '../../controller/provider/profile/profile_controller.dart';
+import '../../helper/sizedboxes/app_sizedboxes.dart';
+import '../../utils/loading_widget.dart';
 
-class ScreenProfile extends StatelessWidget {
-  const ScreenProfile({super.key});
+class ProfileScreen extends StatelessWidget {
+  const ProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final data = Provider.of<ProfileProvider>(context, listen: true);
-    final TextEditingController text = TextEditingController();
-    return Scaffold(
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: AppColors.backgroundColor,
         appBar: AppBar(
-          // elevation: 0,
-          title: const Text(
-            'Personal Information',
-            style: TextStyle(fontWeight: FontWeight.w400),
-          ),
+          title: const Text('Profile'),
+          backgroundColor: AppColors.transparentColor,
+          elevation: 0,
         ),
-        body: Center(
-            child: FutureBuilder<User?>(
-                future: data.fetch('rashidrashi028@gmail.com'),
-                // future: DioClient.getUser(id: '58c44173-e393-4d68-aa48-69ddeed2404c'),
-                builder: (context, snapshot) {
-                  return snapshot.hasData
-                      ? SingleChildScrollView(
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
-                          physics: const ScrollPhysics(),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              kbox20,
-                              ListView.builder(
-                                shrinkWrap: true,
-                                physics: const ScrollPhysics(),
-                                itemCount: 3,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            snapshot.data!.data.username
-                                                .toString(),
-                                            style: const TextStyle(
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                          ),
-                                          TextButton(
-                                            onPressed: () {},
-                                            child: const Text('Edit'),
-                                          ),
-                                        ],
-                                      ),
-                                      SizedBox(
-                                        width: 200,
-                                        height: 40,
-                                        child: UserTextfield(
-                                          hinttexts: 'Zukker Wagen',
-                                          controller: text,
-                                          obscure: false,
-                                          msg: 'null',
-                                        ),
-                                      ),
-                                      kbox20,
-                                    ],
-                                  );
-                                },
+        body: Consumer<ProfileProvider>(
+          builder: (context, values, _) {
+            return values.loading == true
+                ? SizedBox(
+                    height: MediaQuery.of(context).size.height / 1.3,
+                    width: double.infinity,
+                    child: const Center(
+                      child: LoadingWidget(),
+                    ),
+                  )
+                : Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Flexible(
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemBuilder: (context, index) {
+                            return const ListTile(
+                                // onTap: ProfileSectionItems()
+                                //     .profileSectionList[index]
+                                //     .ontap,
+                                // title: Text(ProfileSectionItems()
+                                //     .profileSectionList[index]
+                                //     .title),
+                                // leading: Icon(ProfileSectionItems()
+                                //     .profileSectionList[index]
+                                //     .leadingIcon),
+                                // trailing: GestureDetector(
+                                //   onTap: ProfileSectionItems()
+                                //       .profileSectionList[index]
+                                //       .ontap,
+                                //   child: const Icon(Icons.chevron_right_sharp),
+                                // ),
+                                );
+                          },
+                          itemCount: 3,
+                        ),
+                      ),
+                      AppSizedBoxes.sizedboxH20,
+                      Padding(
+                        padding: const EdgeInsets.only(left: 15.0, right: 15),
+                        child: GestureDetector(
+                          onTap: () => values.logOut(context),
+                          child: Container(
+                            color: AppColors.whiteColor38,
+                            height: 40,
+                            child: const Center(
+                              child: Text(
+                                'Log out',
+                                style: TextStyle(fontSize: 18),
                               ),
-                            ],
+                            ),
                           ),
-                        )
-                      : Column(
-                          children: [
-                            CircularProgressIndicator(),
-                            kbox20,
-                            const Text(
-                              'Change Password',
-                              style: TextStyle(color: Colors.red),
-                            ),
-                            kbox20,
-                            const Text(
-                              'Manage Password',
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            kbox20,
-                            const Text(
-                              'Zukker Wagen\n942562626',
-                              style: TextStyle(fontWeight: FontWeight.w400),
-                            ),
-                            kbox20,
-                            const Text(
-                              'Street 231 l.America,washington\nlocal pin 43443',
-                              style: TextStyle(fontWeight: FontWeight.w400),
-                            ),
-                            kbox20,
-                            TextButton(
-                              onPressed: () {},
-                              child: const Text('ADD A NEW ADDRESS'),
-                            ),
-                            kbox20,
-                            ElevatedButton(
-                              onPressed: () {},
-                              child: const Text('Logout'),
-                            )
-                          ],
-                        );
-                })));
+                        ),
+                      )
+                    ],
+                  );
+          },
+        ),
+      ),
+    );
   }
 }

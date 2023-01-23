@@ -2,133 +2,147 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:zevoyi/core/constant/const.dart';
 import 'package:zevoyi/controller/provider/login_provider.dart';
+import 'package:zevoyi/utils/loading_widget.dart';
 import 'package:zevoyi/view/home/widget/custom_elevatedbutton.dart';
-
 import 'package:zevoyi/view/register/register_screen.dart';
 import 'package:zevoyi/view/register/widgets/account_have_text.dart';
 import 'package:zevoyi/view/home/widget/custom_textfiled.dart';
-import '../../controller/provider/create_provider.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
-  final formGlobalKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
-    final data = Provider.of<CreateAccountProvider>(context, listen: true);
-    return Consumer<LoginProvider>(builder: (BuildContext context, value, _) {
-      return Scaffold(body: SafeArea(
-        child: LayoutBuilder(
-          builder: (context, constraints) {
-            return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  kbox10,
-                  Hero(
-                    tag: 'logo',
-                    child: const Text(
+    // final data = Provider.of<SignUpProvider>(context, listen: true);
+    return Consumer<LoginProvider>(
+      builder: (BuildContext context, values, _) {
+        return Scaffold(
+            key: _scaffoldKey,
+            body: ListView(
+              children: [
+                SizedBox(
+                  width: double.infinity,
+                  height: MediaQuery.of(context).size.width * 0.2,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    Text(
                       'Zevoi',
                       style: TextStyle(
                         fontSize: 40,
-                        fontWeight: FontWeight.bold,
+                        // fontFamily: 'Quicksand',
+                        fontWeight: FontWeight.w800,
                       ),
                     ),
+                    Icon(
+                      Icons.line_axis,
+                      size: 50,
+                      color: Color.fromARGB(255, 220, 93, 93),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  width: double.infinity,
+                  height: MediaQuery.of(context).size.width * 0.1,
+                ),
+                Container(
+                  margin: const EdgeInsets.all(20),
+                  padding: const EdgeInsets.all(10),
+                  height: 450,
+                  decoration: BoxDecoration(
+                    // color: Color.fromARGB(208, 232, 232, 232),
+                    borderRadius: BorderRadius.circular(20),
                   ),
-                  Form(
+                  child: Form(
                     autovalidateMode: AutovalidateMode.onUserInteraction,
-                    key: formGlobalKey,
+                    key: formKey,
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const Text(
                           'Login',
                           style: TextStyle(
                             fontSize: 25,
-                            fontWeight: FontWeight.bold,
+                            fontWeight: FontWeight.w800,
+                            // color: Colors.white,
                           ),
                         ),
                         kbox20,
                         CustomTextfiled(
-                          hintText: 'Email',
-                          eyebutton: null,
+                          controller: values.emailController,
+                          keyboardType: TextInputType.emailAddress,
+                          action: TextInputAction.next,
+                          icon: Icons.mail,
+                          hint: 'Email',
                           obscure: false,
-                          controller: value.emailController,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter your email';
-                            }
-                            return null;
-                          },
-                          // errorText: 'Please enter your email',
+                          validator: (value) => values.emailValidation(value),
                         ),
                         CustomTextfiled(
-                          hintText: 'Password',
-                          eyebutton: IconButton(
-                            icon: Icon(
-                              // Based on passwordVisible state choose the icon
-                              data.passwordVisible
-                                  ? Icons.visibility
-                                  : Icons.visibility_off,
-                              color: Theme.of(context).primaryColorDark,
-                            ),
-                            onPressed: () {
-                              data.eyefunction();
-                            },
-                          ),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter your password';
-                            }
-                            return null;
-                          },
-                          obscure: data.passwordVisible,
-                          controller: value.passwordController,
-                          // errorText: 'Please enter your password',
+                          controller: values.passwordController,
+                          keyboardType: TextInputType.text,
+                          action: TextInputAction.next,
+                          icon: Icons.lock,
+                          hint: 'Password',
+                          obscure: values.isNotVisible,
+                          validator: (value) =>
+                              values.passwordValidation(value),
+                          suffixIcon: values.isNotVisible == true
+                              ? Icons.visibility_off
+                              : Icons.visibility,
+                          suffixOntap: () => values.passwordHide(),
                         ),
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 27),
+                          padding: const EdgeInsets.symmetric(horizontal: 7),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               kboxw20,
+                              // kboxw20,
                               TextButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  values.toForgotPasswordScreen(context);
+                                },
                                 child: const Text(
                                   'ForgetPassword?',
-                                  style: TextStyle(fontWeight: FontWeight.w200),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      color: Color.fromARGB(255, 49, 55, 49)),
                                 ),
                               ),
                             ],
                           ),
                         ),
-                        data.isLoading
-                            ? const CircularProgressIndicator(
-                                strokeWidth: 2,
-                              )
+                        values.loading == true
+                            ? const LoadingWidget()
                             : CustomMainButton(
                                 onPressed: () {
-                                  if (formGlobalKey.currentState!.validate()) {
-                                    formGlobalKey.currentState!.save();
-                                    value.logIn(context);
-                                  }
+                                  values.login(context, formKey.currentState!);
                                 },
                                 name: 'Login',
                               )
                       ],
                     ),
                   ),
-                  BottomloginSignupText(
-                    navpage: RegisterScreen(),
-                    text1: 'Don\'t have an account?',
-                    text2: ' Sign up',
+                ),
+                kbox10,
+
+                Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: BottomloginSignupText(
+                      navpage: RegisterScreen(),
+                      text1: 'Don\'t have an account?',
+                      text2: ' Sign up',
+                    ),
                   ),
-                  kbox10,
-                ],
-              ),
-            );
-          },
-        ),
-      ));
-    });
+                ),
+                // kbox10,
+              ],
+            ));
+      },
+    );
   }
 }

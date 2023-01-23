@@ -17,12 +17,13 @@ class CustomMainButton extends StatelessWidget {
       height: MediaQuery.of(context).size.width * 0.1,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8.0),
-              // side: BorderSide(color: Colors.red),
-            ),
-            backgroundColor: const Color.fromRGBO(136, 215, 170, 1.000),
-            foregroundColor: Colors.white),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8.0),
+            // side: BorderSide(color: Colors.red),
+          ),
+          backgroundColor: const Color.fromARGB(255, 220, 93, 93),
+          foregroundColor: Colors.white,
+        ),
         onPressed: onPressed,
         child: Text(
           name,

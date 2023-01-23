@@ -1,33 +1,28 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:zevoyi/model/sign_up_model/sign_up_model.dart';
+import 'package:zevoyi/model/sign_up_model/signup_token_model.dart';
 
 import '../../core/api/api_baseurl.dart';
 import '../../core/api/api_endpoint.dart';
+import '../../utils/app_exceptions.dart';
 
-class SignupServices {
-  Dio dio = Dio();
-
-  Future<SignupModel?> signupUser(
-      SignupModel model, BuildContext context) async {
+class SignUpService {
+  final dio = Dio();
+  Future<SignUpTokenModel?> signUp(SignUpModel model, context) async {
     try {
-      Response response = await dio.post(
-        ApiBaseUrl().baseUrl + ApiEndpoints.signUp,
-        data: jsonEncode(
-          model.toJson(),
-        ),
-      );
-      log(response.data.toString());
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        log(response.data.toString());
-        final signupResponse = SignupModel.fromJson(response.data);
-        log(response.data.toString());
-        return signupResponse;
+      Response response = await dio.post(ApiUrl.apiUrl + ApiEndPoints.signUp,
+          data: jsonEncode(model.toJson()),
+          queryParameters: {
+            'Content-type': 'application/json',
+            'Accept': 'application/json',
+          });
+      if (response.statusCode! >= 200 && response.statusCode! <= 299) {
+        final SignUpTokenModel model = SignUpTokenModel.fromJson(response.data);
+        return model;
       }
-    } on DioError catch (e) {
-      log(e.message);
+    } catch (e) {
+      AppExceptions.errorHandler(e);
     }
     return null;
   }

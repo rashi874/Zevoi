@@ -8,15 +8,15 @@ class Styles {
         systemNavigationBarColor: isDarkTheme
             ? const Color.fromRGBO(26, 28, 27, 1.000)
             : const Color.fromRGBO(246, 246, 246, 1.000),
-        // statusBarColor: isDarkTheme
-        //     ? const Color.fromRGBO(26, 28, 27, 1.000)
-        //     : const Color.fromRGBO(246, 246, 246, 1.000),
+        statusBarColor: isDarkTheme
+            ? const Color.fromRGBO(26, 28, 27, 1.000)
+            : const Color.fromRGBO(246, 246, 246, 1.000),
       ),
     );
 
     return ThemeData(
       fontFamily: 'Manrope',
-      useMaterial3: true,
+      // useMaterial3: true,
       primarySwatch: Colors.blueGrey,
       primaryColor: isDarkTheme ? Colors.black : Colors.white,
       backgroundColor: isDarkTheme ? Colors.black : const Color(0xffF1F5FB),
@@ -43,21 +43,21 @@ class Styles {
           colorScheme: isDarkTheme
               ? const ColorScheme.dark()
               : const ColorScheme.light()),
-      appBarTheme: AppBarTheme(
-        elevation: 0.0,
-        backgroundColor: isDarkTheme
-            ? const Color.fromRGBO(26, 28, 27, 1.000)
-            : const Color.fromRGBO(246, 246, 246, 1.000),
-        systemOverlayStyle: SystemUiOverlayStyle(
-          statusBarColor: isDarkTheme
-              ? const Color.fromRGBO(26, 28, 27, 1.000)
-              : const Color.fromRGBO(246, 246, 246, 1.000), // <-- SEE HERE
-          // statusBarIconBrightness:
-          //     Brightness.dark, //<-- For Android SEE HERE (dark icons)
-          // statusBarBrightness:
-          //     Brightness.light, //<-- For iOS SEE HERE (dark icons)
-        ),
-      ),
+      // appBarTheme: AppBarTheme(
+      //   elevation: 0.0,
+      //   backgroundColor: isDarkTheme
+      //       ? const Color.fromRGBO(26, 28, 27, 1.000)
+      //       : const Color.fromRGBO(246, 246, 246, 1.000),
+      //   systemOverlayStyle: SystemUiOverlayStyle(
+      //     statusBarColor: isDarkTheme
+      //         ? const Color.fromRGBO(26, 28, 27, 1.000)
+      //         : const Color.fromRGBO(246, 246, 246, 1.000), // <-- SEE HERE
+      //     // statusBarIconBrightness:
+      //     //     Brightness.dark, //<-- For Android SEE HERE (dark icons)
+      //     // statusBarBrightness:
+      //     //     Brightness.light, //<-- For iOS SEE HERE (dark icons)
+      //   ),
+      // ),
       textSelectionTheme: TextSelectionThemeData(
           selectionColor: isDarkTheme
               ? Colors.white

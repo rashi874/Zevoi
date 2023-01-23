@@ -1,41 +1,77 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:zevoyi/controller/provider/bottom_nav/bottom_nav_bar_controller.dart';
+import 'package:zevoyi/controller/provider/cart/cart_controller.dart';
+import 'package:zevoyi/controller/provider/profile/profile_controller.dart';
+import 'package:zevoyi/controller/provider/home/home_screen_controller.dart';
 import 'package:zevoyi/controller/provider/login_provider.dart';
-import 'package:zevoyi/controller/provider/profile_provider.dart';
-import 'package:zevoyi/core/constant/style.dart';
-import 'package:zevoyi/view/home/home_screen.dart';
-import 'package:zevoyi/view/login/login_screen.dart';
+import 'package:zevoyi/controller/provider/new_password/new_password_controller.dart';
+import 'package:zevoyi/controller/splash/splash_controller.dart';
+import 'package:zevoyi/routes/route_functions.dart';
+import 'package:zevoyi/view/product_screen/products_collection_screen.dart';
 import 'package:zevoyi/view/screens/splash_screen.dart';
-import 'controller/provider/create_provider.dart';
+import 'controller/provider/product_screen/product_screen_controller.dart';
+import 'controller/provider/forgot_password/forgot_password_controller.dart';
+import 'controller/provider/otp/otp_screen_controller.dart';
+import 'controller/provider/signup_provider.dart';
+import 'controller/provider/wishlist/wishlist_controller.dart';
 
 void main() {
   runApp(const MyApp());
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+      overlays: [SystemUiOverlay.top]);
+  SystemChrome.setSystemUIOverlayStyle(
+    SystemUiOverlayStyle(
+      statusBarIconBrightness: Brightness.dark,
+      systemNavigationBarColor: Colors.grey[50],
+      systemNavigationBarIconBrightness: Brightness.dark,
+      systemNavigationBarDividerColor: Colors.grey[50],
+      // systemStatusBarContrastEnforced: true,
+      systemNavigationBarContrastEnforced: true,
+      statusBarColor: Color.fromARGB(0, 250, 250, 250),
+      statusBarBrightness: Brightness.dark,
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-  bool get isDarkTheme => false;
-  bool get islightheme => true;
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider.value(value: CreateAccountProvider()),
+        ChangeNotifierProvider.value(value: SignUpProvider()),
         ChangeNotifierProvider(create: (context) => LoginProvider()),
+        ChangeNotifierProvider(create: (context) => ForgotPasswordProvider()),
+        ChangeNotifierProvider(create: (context) => NewPasswordProvider()),
+        ChangeNotifierProvider(create: (context) => OtpScreenProvider()),
+        ChangeNotifierProvider(create: (context) => BottomNavBarProvider()),
+        ChangeNotifierProvider(create: (context) => HomeScreenProvider()),
+        ChangeNotifierProvider(create: (context) => SplashProvider()),
+        ChangeNotifierProvider(create: (context) => ProfileProvider()),
+        ChangeNotifierProvider(create: (context) => BottomNavBarProvider()),
+        ChangeNotifierProvider(create: (context) => ProductProvider()),
+        ChangeNotifierProvider(create: (context) => WishListProvider()),
+        ChangeNotifierProvider(create: (context) => CartProvider()),
         ChangeNotifierProvider(create: (context) => ProfileProvider()),
       ],
       child: MaterialApp(
+        routes: {
+          ProductCollectionScreen.routeName: (context) =>
+              const ProductCollectionScreen()
+        },
         title: 'Flutter Demo',
         debugShowCheckedModeBanner: false,
-        theme: Styles.themeData(isDarkTheme, context),
-        darkTheme: Styles.themeData(islightheme, context),
+        theme: ThemeData(
+          fontFamily: 'Roboto-Regular',
+          useMaterial3: true,
+          primarySwatch: Colors.blueGrey,
+        ),
+        onGenerateRoute: (settings) => AppRoutes.generateRoute(settings),
         home: const SplashScreen(),
       ),
     );
   }
 }
-
-//mor_2314
-//83r5^_
-//rashidrashi023@gmail.com
-//rashid@1
