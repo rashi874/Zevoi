@@ -3,10 +3,10 @@ import 'package:provider/provider.dart';
 import 'package:zevoyi/core/constant/const.dart';
 import 'package:zevoyi/view/home/widget/custom_elevatedbutton.dart';
 import 'package:zevoyi/view/login/login_screen.dart';
-import 'package:zevoyi/view/register/widgets/account_have_text.dart';
+import 'package:zevoyi/view/wish_list/register/widgets/account_have_text.dart';
 import 'package:zevoyi/view/home/widget/custom_textfiled.dart';
-import '../../controller/provider/signup_provider.dart';
-import '../../utils/loading_widget.dart';
+import '../../../controller/provider/signup_provider.dart';
+import '../../../utils/loading_widget.dart';
 
 class RegisterScreen extends StatelessWidget {
   RegisterScreen({super.key});

@@ -19,8 +19,8 @@ import 'controller/provider/wishlist/wishlist_controller.dart';
 
 void main() {
   runApp(const MyApp());
-  SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
-      overlays: [SystemUiOverlay.top]);
+  // SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+  //     overlays: [SystemUiOverlay.top]);
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle(
       statusBarIconBrightness: Brightness.dark,
@@ -28,8 +28,8 @@ void main() {
       systemNavigationBarIconBrightness: Brightness.dark,
       systemNavigationBarDividerColor: Colors.grey[50],
       // systemStatusBarContrastEnforced: true,
-      systemNavigationBarContrastEnforced: true,
-      statusBarColor: Color.fromARGB(0, 250, 250, 250),
+      // systemNavigationBarContrastEnforced: true,
+      statusBarColor: const Color.fromARGB(0, 250, 250, 250),
       statusBarBrightness: Brightness.dark,
     ),
   );
@@ -67,7 +67,8 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           fontFamily: 'Roboto-Regular',
           useMaterial3: true,
-          primarySwatch: Colors.blueGrey,
+          colorSchemeSeed: Color.fromARGB(255, 255, 135, 29),
+          scaffoldBackgroundColor: Color.fromARGB(255, 255, 255, 255),
         ),
         onGenerateRoute: (settings) => AppRoutes.generateRoute(settings),
         home: const SplashScreen(),

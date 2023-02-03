@@ -4,7 +4,7 @@ import 'package:zevoyi/view/home/home_screen.dart';
 import 'package:zevoyi/view/login/login_screen.dart';
 import 'package:zevoyi/view/otp/otp_screen.dart';
 import 'package:zevoyi/view/product_screen/product_screen.dart';
-import 'package:zevoyi/view/register/register_screen.dart';
+import 'package:zevoyi/view/wish_list/register/register_screen.dart';
 import 'package:zevoyi/view/screens/splash_screen.dart';
 
 import '../model/new_password/model/newpassword_screen_model.dart';
@@ -59,7 +59,7 @@ class AppRoutes {
           builder: (context) => const HomeScreen(),
         );
       case RouteNames.productCollections:
-        final args = settings.arguments as ProductCollectionScreenModel;
+        // final args = settings.arguments as ProductCollectionScreenModel;
         return MaterialPageRoute(
           builder: (context) => const ProductCollectionScreen(
               // category: args.category,
@@ -70,7 +70,8 @@ class AppRoutes {
         final args = settings.arguments as ProductIdModel;
         return MaterialPageRoute(
           builder: (context) => ProductViewScreen(
-            productId: args.productId, categoryId:args.categoryId,
+            productId: args.productId,
+            categoryId: args.categoryId,
           ),
         );
 

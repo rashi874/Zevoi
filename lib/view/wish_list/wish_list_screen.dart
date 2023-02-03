@@ -14,15 +14,14 @@ class WishListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final wishListProvider =
-    //     Provider.of<WishListProvider>(context, listen: false);
-    // WidgetsBinding.instance.addPostFrameCallback((_) {
-    //   wishListProvider.getWishListItems();
-    // }
-    // );
+    final wishListProvider =
+        Provider.of<WishListProvider>(context, listen: false);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      wishListProvider.getWishListItems();
+    });
     return SafeArea(
       child: Scaffold(
-        backgroundColor: AppColors.backgroundColor,
+        // backgroundColor: AppColors.backgroundColor,
         appBar: AppBar(
           backgroundColor: AppColors.transparentColor,
           elevation: 0,
@@ -59,87 +58,76 @@ class WishListScreen extends StatelessWidget {
                                 Text('Your wishlist is empty'),
                               ],
                             ))
-                        : Expanded(
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 8.0),
-                              child: GridView.builder(
-                                shrinkWrap: true,
-                                itemCount:
-                                    wishListValues.wishList!.products.length,
-                                gridDelegate:
-                                    const SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 2,
-                                  mainAxisSpacing: 10,
-                                  crossAxisSpacing: 8,
-                                  childAspectRatio: 1.5 / 2,
-                                ),
-                                itemBuilder: (context, index) {
-                                  return GestureDetector(
-                                    onTap: () => homeValues.toProductScreen(
-                                      context,
-                                      wishListValues
-                                          .wishList!.products[index].product.id,
-                                      wishListValues.wishList!.products[index]
-                                          .product.category,
-                                    ),
-                                    child: Stack(
-                                      children: [
-                                        Container(
-                                          decoration: BoxDecoration(
+                        : Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 8.0),
+                            child: ListView.builder(
+                              padding: EdgeInsets.all(8),
+                              shrinkWrap: true,
+                              itemCount:
+                                  wishListValues.wishList!.products.length,
+                              // gridDelegate:
+                              //     const SliverGridDelegateWithFixedCrossAxisCount(
+                              //   crossAxisCount: 2,
+                              //   mainAxisSpacing: 10,
+                              //   crossAxisSpacing: 8,
+                              //   childAspectRatio: 1.5 / 2,
+                              // ),
+                              itemBuilder: (context, index) {
+                                return GestureDetector(
+                                  onTap: () => homeValues.toProductScreen(
+                                    context,
+                                    wishListValues
+                                        .wishList!.products[index].product.id,
+                                    wishListValues.wishList!.products[index]
+                                        .product.category,
+                                  ),
+                                  child: Column(
+                                    children: [
+                                      Card(
+                                        elevation: 0,
+                                        shape: RoundedRectangleBorder(
                                             borderRadius:
-                                                BorderRadius.circular(12),
-                                            color: Colors.black26,
-                                            border: Border.all(
-                                              color: AppColors.whiteColor54,
+                                                BorderRadius.circular(20)),
+                                        // decoration: BoxDecoration(
+                                        //   borderRadius:
+                                        //       BorderRadius.circular(12),
+                                        //   color: const Color.fromARGB(
+                                        //       66, 255, 255, 255),
+                                        //   // border: Border.all(
+                                        //   //   color: const Color.fromARGB(
+                                        //   //       239, 14, 14, 14),
+                                        //   // ),
+                                        // ),
+                                        child: Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            Image(
+                                              height: 100,
+                                              // width: 180,
+                                              fit: BoxFit.cover,
+                                              image: NetworkImage(
+                                                  "http://${ApiUrl.url}:5005/products/${wishListValues.wishList!.products[index].product.image[0]}"),
                                             ),
-                                          ),
-                                          child: Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 12.0, horizontal: 8),
-                                            child: Center(
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Image(
-                                                    height: 130,
-                                                    width: 180,
-                                                    fit: BoxFit.fill,
-                                                    image: NetworkImage(
-                                                        "http://${ApiUrl.url}:5008/products/${wishListValues.wishList!.products[index].product.image[0]}"),
-                                                  ),
-                                                  AppSizedBoxes.sizedboxH15,
-                                                  Text(
-                                                    wishListValues
-                                                        .wishList!
-                                                        .products[index]
-                                                        .product
-                                                        .name,
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                  ),
-                                                  AppSizedBoxes.sizedboxH3,
-                                                  ProductTextdesciptionStyle(
-                                                    text1:
-                                                        "₹${wishListValues.wishList!.products[index].product.discountPrice}",
-                                                    text2:
-                                                        '₹${wishListValues.wishList!.products[index].product.price}',
-                                                    text3:
-                                                        '${wishListValues.wishList!.products[index].product.offer}% off',
-                                                  ),
-                                                  AppSizedBoxes.sizedboxH5,
-                                                ],
-                                              ),
+
+                                            AppSizedBoxes.sizedboxW5,
+
+                                            ProductTextdesciptionStyle(
+                                              name: wishListValues.wishList!
+                                                  .products[index].product.name,
+                                              text1:
+                                                  "₹${(wishListValues.wishList!.products[index].product.price - wishListValues.wishList!.products[index].product.discountPrice).round()}",
+                                              text2:
+                                                  '₹${wishListValues.wishList!.products[index].product.price}',
+                                              text3:
+                                                  '${wishListValues.wishList!.products[index].product.offer}% off',
                                             ),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                              right: 9, top: 10),
-                                          child: Align(
-                                            alignment: Alignment.topRight,
-                                            child: GestureDetector(
+                                            // AppSizedBoxes.sizedboxH5,
+                                            Spacer(),
+                                            GestureDetector(
                                               onTap: () => wishListValues
                                                   .addOrRemoveFromWishList(
                                                       wishListValues
@@ -153,13 +141,13 @@ class WishListScreen extends StatelessWidget {
                                                 size: 30,
                                               ),
                                             ),
-                                          ),
+                                          ],
                                         ),
-                                      ],
-                                    ),
-                                  );
-                                },
-                              ),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
                             ),
                           );
               },

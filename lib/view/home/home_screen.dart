@@ -19,29 +19,34 @@ class HomeScreen extends StatelessWidget {
   // final controller = PageController(viewportFraction: 0.8, keepPage: true);
   @override
   Widget build(BuildContext context) {
+    final ColorScheme colors = Theme.of(context).colorScheme;
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       Provider.of<HomeScreenProvider>(context, listen: false).getProducts();
     });
 
     return Scaffold(
       appBar: AppBar(
+        toolbarHeight: 80,
         centerTitle: true,
         automaticallyImplyLeading: false,
-        backgroundColor: Colors.white,
+        // backgroundColor: colors.background,
         elevation: 0,
         leadingWidth: 120,
         leading: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.symmetric(horizontal: 2),
           child: Row(
-            children: const [
-              Icon(
+            children: [
+              const Icon(
                 Icons.line_axis,
-                size: 50,
-                color: Color.fromARGB(255, 220, 93, 93),
+                size: 55,
+                color: Color.fromARGB(255, 3, 17, 47),
               ),
               Text(
                 'Zevoi',
-                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                style: Theme.of(context)
+                    .textTheme
+                    .titleMedium!
+                    .copyWith(fontWeight: FontWeight.w600),
               ),
             ],
           ),
@@ -50,8 +55,16 @@ class HomeScreen extends StatelessWidget {
           IconButton(
             icon: const Icon(
               CupertinoIcons.search,
-              size: 25,
-              color: Color.fromARGB(255, 0, 0, 0),
+              size: 23,
+              // color: Color.fromARGB(255, 0, 0, 0),
+            ),
+            style: IconButton.styleFrom(
+              foregroundColor: colors.onPrimary,
+              backgroundColor: colors.primary,
+              disabledBackgroundColor: colors.onSurface.withOpacity(0.12),
+              hoverColor: colors.onPrimary.withOpacity(0.08),
+              focusColor: colors.onPrimary.withOpacity(0.12),
+              highlightColor: colors.onPrimary.withOpacity(0.12),
             ),
             onPressed: () {
               // do something
@@ -60,7 +73,6 @@ class HomeScreen extends StatelessWidget {
         ],
       ),
       body: SafeArea(
-        
         child: Consumer<HomeScreenProvider>(
           builder: (context, value, child) {
             return SingleChildScrollView(
@@ -68,22 +80,45 @@ class HomeScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        value.carousalList.isEmpty
+                            ? Shimmer.fromColors(
+                                baseColor: const Color.fromARGB(36, 51, 51, 51),
+                                highlightColor:
+                                    const Color.fromARGB(55, 110, 109, 109),
+                                direction: ShimmerDirection.btt,
+                                child: const ShimmerContainer(
+                                  margin: EdgeInsets.all(5),
+                                  height: 150,
+                                  width: double.infinity,
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(5),
+                                  ),
+                                ))
+                            : CarousalSliderWidget(
+                                carousals: value.carousalList,
+                              ),
+                        // kbox10,
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 5),
+                          child: Text(
+                            'Top Brands',
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium!
+                                .copyWith(fontWeight: FontWeight.w600),
+                          ),
+                        ),
                         Container(
                           decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15),
-                              color: Colors.white),
+                            borderRadius: BorderRadius.circular(15),
+                            // color: Colors.white,
+                          ),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 10, vertical: 5),
-                                child: Text(
-                                  'Top Brands',
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                ),
-                              ),
                               value.categoryList.isEmpty
                                   ? Shimmer.fromColors(
                                       baseColor:
@@ -128,8 +163,10 @@ class HomeScreen extends StatelessWidget {
                                         ),
                                       ),
                                     )
-                                  : SizedBox(
-                                      height: 100,
+                                  : Container(
+                                      // color: const Color.fromARGB(
+                                      //     255, 243, 248, 255),
+                                      height: 120,
                                       child: ListView.builder(
                                           itemCount: value.categoryList.length,
                                           scrollDirection: Axis.horizontal,
@@ -140,6 +177,7 @@ class HomeScreen extends StatelessWidget {
                                                   const EdgeInsets.all(7.0),
                                               child: Column(
                                                 children: [
+                                                  kbox10,
                                                   GestureDetector(
                                                     onTap: () =>
                                                         Navigator.of(context)
@@ -158,24 +196,34 @@ class HomeScreen extends StatelessWidget {
                                                     //   value.categoryList[index]
                                                     //       .id,
                                                     // ),
-                                                    child: CircleAvatar(
-                                                      radius: 27,
-                                                      backgroundColor:
-                                                          const Color.fromARGB(
-                                                              172,
-                                                              255,
-                                                              255,
-                                                              255),
-                                                      backgroundImage: NetworkImage(
-                                                          "http://${ApiUrl.url}:5005/category/${value.categoryList[index].imagePath}"),
+                                                    child: Container(
+                                                      height: 55,
+                                                      width: 55,
+                                                      decoration: BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(18),
+                                                          image:
+                                                              DecorationImage(
+                                                                  image:
+                                                                      NetworkImage(
+                                                                    "http://${ApiUrl.url}:5005/category/${value.categoryList[index].imagePath}",
+                                                                  ),
+                                                                  fit: BoxFit
+                                                                      .cover)),
                                                     ),
                                                   ),
                                                   kbox10,
                                                   Text(
                                                     value.categoryList[index]
                                                         .name,
-                                                    style: const TextStyle(
-                                                        fontSize: 13),
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .titleSmall!
+                                                        .copyWith(
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w500),
                                                   ),
                                                 ],
                                               ),
@@ -188,37 +236,15 @@ class HomeScreen extends StatelessWidget {
                       ],
                     ),
                     kbox10,
-                    value.carousalList.isEmpty
-                        ? Shimmer.fromColors(
-                            baseColor: const Color.fromARGB(36, 51, 51, 51),
-                            highlightColor:
-                                const Color.fromARGB(55, 110, 109, 109),
-                            direction: ShimmerDirection.btt,
-                            child: const ShimmerContainer(
-                              margin: EdgeInsets.all(5),
-                              height: 150,
-                              width: double.infinity,
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(5),
-                              ),
-                            ))
-                        : CarousalSliderWidget(
-                            carousals: value.carousalList,
-                          ),
-                    kbox10,
                     Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 10, vertical: 0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: const [
-                          Text(
-                            'Latest Products',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
+                      child: Text(
+                        'Latest Products',
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleMedium!
+                            .copyWith(fontWeight: FontWeight.w600),
                       ),
                     ),
                     kbox10,
@@ -311,20 +337,21 @@ class HomeScreen extends StatelessWidget {
                                         color:
                                             Color.fromARGB(255, 255, 255, 255),
                                         borderRadius: BorderRadius.all(
-                                          Radius.circular(10),
+                                          Radius.circular(20),
                                         ),
                                       ),
                                       child: Column(
                                         crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                            CrossAxisAlignment.end,
                                         children: [
                                           kbox20,
                                           Container(
-                                            height: 130,
+                                            margin: const EdgeInsets.all(5),
+                                            height: 120,
                                             decoration: BoxDecoration(
                                                 image: DecorationImage(
                                                     image: NetworkImage(
-                                                        "http://${ApiUrl.url}:5005/products/${value.productList[index].image[4]}"),
+                                                        "http://${ApiUrl.url}:5005/products/${value.productList[index].image[0]}"),
                                                     fit: BoxFit.fitHeight),
                                                 // color:
                                                 //     Color.fromARGB(255, 54, 200, 244),
@@ -334,7 +361,7 @@ class HomeScreen extends StatelessWidget {
                                           kbox10,
                                           Padding(
                                             padding: const EdgeInsets.symmetric(
-                                                horizontal: 20, vertical: 0),
+                                                horizontal: 10, vertical: 0),
                                             child: Column(
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.center,
@@ -345,12 +372,18 @@ class HomeScreen extends StatelessWidget {
                                                   value.productList[index].name,
                                                   // textWidthBasis:
                                                   //     TextWidthBasis.longestLine,
-                                                  style: const TextStyle(
-                                                      fontSize: 13,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: Color.fromARGB(
-                                                          255, 2, 2, 2)),
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .titleSmall!
+                                                      .copyWith(
+                                                          fontWeight:
+                                                              FontWeight.w600),
+                                                  // style: const TextStyle(
+                                                  //     fontSize: 13,
+                                                  //     fontWeight:
+                                                  //         FontWeight.bold,
+                                                  //     color: Color.fromARGB(
+                                                  //         255, 2, 2, 2)),
                                                   textAlign: TextAlign.center,
                                                   maxLines: 1,
                                                 ),
@@ -364,70 +397,93 @@ class HomeScreen extends StatelessWidget {
                                                   MainAxisAlignment.center,
                                               children: [
                                                 Text(
-                                                  "₹ ${(value.productList[index].price)}",
-                                                  style: const TextStyle(
-                                                      fontSize: 13,
-                                                      decoration: TextDecoration
-                                                          .lineThrough,
-                                                      color: Color.fromARGB(
-                                                          255, 182, 182, 182)),
+                                                  "₹ ${(value.productList[index].price - value.productList[index].discountPrice).round()}.00",
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .titleMedium!
+                                                      .copyWith(
+                                                          // fontSize: 18,
+                                                          fontWeight:
+                                                              FontWeight.w600),
+                                                  textAlign: TextAlign.center,
                                                 ),
                                                 kboxw20,
-                                                Container(
-                                                  width: 50,
-                                                  decoration:
-                                                      const BoxDecoration(
-                                                    color: Color.fromARGB(
-                                                        249, 235, 197, 7),
-                                                    borderRadius:
-                                                        BorderRadius.all(
-                                                      Radius.circular(10),
-                                                    ),
-                                                  ),
-                                                  child: Row(
-                                                    children: [
-                                                      AppSizedBoxes.sizedboxW5,
-                                                      Text(
-                                                        value.productList[index]
-                                                            .rating
-                                                            .toString(),
-                                                        style: const TextStyle(
-                                                            color: AppColors
-                                                                .whiteColor),
-                                                      ),
-                                                      const Icon(
-                                                        Icons.star,
-                                                        size: 18,
-                                                        color: AppColors
-                                                            .whiteColor,
-                                                      )
-                                                    ],
-                                                  ),
-                                                ),
                                               ],
                                             ),
                                           ),
                                           Row(
                                             mainAxisAlignment:
-                                                MainAxisAlignment.spaceAround,
+                                                MainAxisAlignment.center,
                                             children: [
-                                              Text(
-                                                "₹ ${(value.productList[index].price - value.productList[index].discountPrice).round()}",
-                                                style: const TextStyle(
-                                                    fontSize: 18,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Color.fromARGB(
-                                                        255, 16, 16, 16)),
-                                                textAlign: TextAlign.center,
+                                              Container(
+                                                margin: const EdgeInsets.all(8),
+                                                width: 40,
+                                                height: 20,
+                                                decoration: const BoxDecoration(
+                                                  color: Color.fromARGB(
+                                                      255, 24, 97, 186),
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                    Radius.circular(100),
+                                                  ),
+                                                ),
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    AppSizedBoxes.sizedboxW5,
+                                                    Text(
+                                                      value.productList[index]
+                                                          .rating
+                                                          .toString(),
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .bodySmall!
+                                                          .copyWith(
+                                                              color: AppColors
+                                                                  .whiteColor,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600),
+                                                    ),
+                                                    const Icon(
+                                                      Icons.star,
+                                                      size: 12,
+                                                      color:
+                                                          AppColors.whiteColor,
+                                                    )
+                                                  ],
+                                                ),
                                               ),
                                               Text(
+                                                "₹ ${(value.productList[index].price)}",
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .titleSmall!
+                                                    .copyWith(
+                                                        decoration:
+                                                            TextDecoration
+                                                                .lineThrough,
+                                                        color: Colors.grey,
+                                                        fontWeight:
+                                                            FontWeight.w600),
+                                                // style: const TextStyle(
+                                                //     fontSize: 13,
+                                                //     decoration: TextDecoration
+                                                //         .lineThrough,
+                                                //     color: Color.fromARGB(
+                                                //         255, 182, 182, 182)),
+                                              ),
+                                              kboxw5,
+                                              Text(
                                                 '${value.productList[index].offer}% off',
-                                                style: const TextStyle(
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Color.fromARGB(
-                                                      211, 66, 188, 4),
-                                                ),
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodySmall!
+                                                    .copyWith(
+                                                        color: Colors.green,
+                                                        fontWeight:
+                                                            FontWeight.w600),
                                                 textAlign: TextAlign.center,
                                                 maxLines: 1,
                                               ),
@@ -439,32 +495,32 @@ class HomeScreen extends StatelessWidget {
                                   );
                                 });
                           }),
-                    value.carousalList.isEmpty
-                        ? Shimmer.fromColors(
-                            baseColor: const Color.fromARGB(36, 51, 51, 51),
-                            highlightColor:
-                                const Color.fromARGB(55, 110, 109, 109),
-                            direction: ShimmerDirection.btt,
-                            child: const ShimmerContainer(
-                              height: 150,
-                              width: double.infinity,
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(5),
-                              ),
-                              margin: EdgeInsets.all(5),
-                            ))
-                        : Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: Container(
-                              height: 150,
-                              // width: 500,
-                              decoration: const BoxDecoration(
-                                  image: DecorationImage(
-                                      image: NetworkImage(
-                                          'https://cdn.shopify.com/s/files/1/0544/7319/5695/files/Banner_quick_delivery_what_a_host-2_x800.jpg?v=1669590946'),
-                                      fit: BoxFit.fitWidth)),
-                            ),
-                          ),
+                    // value.carousalList.isEmpty
+                    //     ? Shimmer.fromColors(
+                    //         baseColor: const Color.fromARGB(36, 51, 51, 51),
+                    //         highlightColor:
+                    //             const Color.fromARGB(55, 110, 109, 109),
+                    //         direction: ShimmerDirection.btt,
+                    //         child: const ShimmerContainer(
+                    //           height: 150,
+                    //           width: double.infinity,
+                    //           borderRadius: BorderRadius.all(
+                    //             Radius.circular(5),
+                    //           ),
+                    //           margin: EdgeInsets.all(5),
+                    //         ))
+                    //     : Padding(
+                    //         padding: const EdgeInsets.all(5.0),
+                    //         child: Container(
+                    //           height: 150,
+                    //           // width: 500,
+                    //           decoration: const BoxDecoration(
+                    //               image: DecorationImage(
+                    //                   image: NetworkImage(
+                    //                       'https://cdn.shopify.com/s/files/1/0544/7319/5695/files/Banner_quick_delivery_what_a_host-2_x800.jpg?v=1669590946'),
+                    //                   fit: BoxFit.fitWidth)),
+                    //         ),
+                    //       ),
                   ]),
             );
           },

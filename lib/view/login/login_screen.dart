@@ -4,8 +4,8 @@ import 'package:zevoyi/core/constant/const.dart';
 import 'package:zevoyi/controller/provider/login_provider.dart';
 import 'package:zevoyi/utils/loading_widget.dart';
 import 'package:zevoyi/view/home/widget/custom_elevatedbutton.dart';
-import 'package:zevoyi/view/register/register_screen.dart';
-import 'package:zevoyi/view/register/widgets/account_have_text.dart';
+import 'package:zevoyi/view/wish_list/register/register_screen.dart';
+import 'package:zevoyi/view/wish_list/register/widgets/account_have_text.dart';
 import 'package:zevoyi/view/home/widget/custom_textfiled.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -19,6 +19,7 @@ class LoginScreen extends StatelessWidget {
     return Consumer<LoginProvider>(
       builder: (BuildContext context, values, _) {
         return Scaffold(
+            appBar: AppBar(),
             key: _scaffoldKey,
             body: ListView(
               children: [

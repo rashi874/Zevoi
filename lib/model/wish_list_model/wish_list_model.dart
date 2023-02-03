@@ -48,7 +48,7 @@ class ProductDetails {
   String id;
   String name;
   int price;
-  int discountPrice;
+  dynamic discountPrice;
   int offer;
   String rating;
   List<String> size;

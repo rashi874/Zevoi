@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:zevoyi/core/constant/const.dart';
-import 'package:zevoyi/model/home_models/product_model.dart';
 import 'package:zevoyi/view/product_screen/products_collection_screen.dart';
 import 'package:zevoyi/view/product_screen/widgets/custom_bottom_container.dart';
 import 'package:zevoyi/view/product_screen/widgets/product_description.dart';
 import 'package:zevoyi/view/product_screen/widgets/product_images_carousal_view.dart';
-
 import '../../controller/provider/cart/cart_controller.dart';
 import '../../controller/provider/home/home_screen_controller.dart';
 import '../../controller/provider/product_screen/product_screen_controller.dart';
@@ -46,7 +44,7 @@ class ProductViewScreen extends StatelessWidget {
         title: const Icon(
           Icons.line_axis,
           size: 30,
-          color: Color.fromARGB(255, 220, 93, 93),
+          color: Color.fromARGB(255, 12, 11, 11),
         ),
         // elevation: 0,
         // backgroundColor: AppColors.transparentColor,
@@ -85,22 +83,27 @@ class ProductViewScreen extends StatelessWidget {
                                                   .toString()),
                                       child: Card(
                                         child: Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Icon(values2.icon)
-                                            // Icon(
-                                            //   values2.favouriteProducts.contains(
-                                            //           values.product!.id)
-                                            //       ? Icons.favorite
-                                            //       : Icons
-                                            //           .favorite_outline_outlined,
-                                            //   color: values2.favouriteProducts
-                                            //           .contains(
-                                            //               values.product!.id)
-                                            //       ? AppColors.redColor
-                                            //       : AppColors.blackcolor,
-                                            //   size: 30,
-                                            // ),
-                                            ),
+                                          padding: const EdgeInsets.all(8.0),
+                                          child:
+                                              //  Icon(
+                                              //   // values2.icon,
+                                              // // values2.favouriteProducts.contains(values.product!.id)
+                                              // )
+                                              Icon(
+                                            values2.favouriteProducts.contains(
+                                                    values.product!.id)
+                                                ? Icons.favorite
+                                                : Icons
+                                                    .favorite_outline_outlined,
+                                            color: values2.favouriteProducts
+                                                    .contains(
+                                                        values.product!.id)
+                                                ? Color.fromARGB(
+                                                    255, 24, 11, 10)
+                                                : AppColors.blackcolor,
+                                            size: 30,
+                                          ),
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -122,7 +125,8 @@ class ProductViewScreen extends StatelessWidget {
                             child: Text(
                               'View more from ${data.name}',
                               style: const TextStyle(
-                                  fontSize: 14, color: Colors.blue),
+                                  fontSize: 14,
+                                  color: Color.fromARGB(255, 243, 145, 33)),
                             ),
                           ),
                           Column(
@@ -181,12 +185,13 @@ class ProductViewScreen extends StatelessWidget {
                     Align(
                       alignment: Alignment.bottomCenter,
                       child: SizedBox(
-                        height: 50,
+                        // height: 100,
                         // width: double.infinity,
                         child: Row(
                           children: [
                             CustomBottomContainer(
-                              containerColor: Color.fromARGB(255, 246, 100, 87),
+                              containerColor:
+                                  Color.fromARGB(255, 246, 221, 221),
                               text: values3.cartItemsId
                                       .contains(values.product!.id)
                                   ? 'Go to cart'
@@ -196,11 +201,12 @@ class ProductViewScreen extends StatelessWidget {
                                   ? values.goToCart(context)
                                   : values3.addToCart(
                                       values.product!.id.toString(),
-                                      // values.productSize,
+                                      values.productSize,
                                       null),
+                              fontcolor: AppColors.blackcolor,
                             ),
                             CustomBottomContainer(
-                              containerColor: Color.fromARGB(255, 68, 130, 255),
+                              containerColor: Color.fromARGB(255, 11, 5, 5),
                               text: 'Buy now',
                               ontap: () async {
                                 values3.cartItemsId.contains(values.product!.id)
@@ -213,7 +219,7 @@ class ProductViewScreen extends StatelessWidget {
                                     : values3
                                         .addToCart(
                                             values.product!.id.toString(),
-                                            // values.productSize,
+                                            values.productSize,
                                             OrderSummaryScreenEnum
                                                 .buyOneProductOrderSummaryScreen)
                                         .then((value) {
@@ -225,6 +231,7 @@ class ProductViewScreen extends StatelessWidget {
                                             product.id);
                                       });
                               },
+                              fontcolor: AppColors.whiteColor,
                             ),
                           ],
                         ),
@@ -257,17 +264,19 @@ class ProductsDetails extends StatelessWidget {
           Text(
             detailes,
             textAlign: TextAlign.start,
-            style: const TextStyle(
-              fontSize: 16,
-              color: Color.fromARGB(255, 132, 131, 131),
-            ),
+            style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                color: Color.fromARGB(255, 132, 131, 131),
+                fontWeight: FontWeight.w600),
           ),
           Text(
             title,
-            style: const TextStyle(
-              fontSize: 16,
-              color: Color.fromARGB(255, 0, 0, 0),
-            ),
+            style: Theme.of(context)
+                .textTheme
+                .titleSmall!
+                .copyWith(fontWeight: FontWeight.w600),
+            maxLines: 6,
+
+            // ),
           ),
         ],
       ),

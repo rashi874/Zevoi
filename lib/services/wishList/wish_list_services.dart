@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:zevoyi/utils/app_exceptions.dart';
 
@@ -12,9 +14,14 @@ class WishListService {
     try {
       final Response response =
           await dios.get(ApiUrl.apiUrl + ApiEndPoints.wishList);
-      if (response.statusCode == 200) {
-        final WishListModel model = WishListModel.fromJson(response.data);
-        return model;
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        if (response.data == null) {
+          return null;
+        } else {
+          final WishListModel model = WishListModel.fromJson(response.data);
+          log(model.products.toString());
+          return model;
+        }
       }
     } catch (e) {
       AppExceptions.errorHandler(e);

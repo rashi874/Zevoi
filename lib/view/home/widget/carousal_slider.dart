@@ -14,16 +14,19 @@ class CarousalSliderWidget extends StatelessWidget {
     return CarouselSlider.builder(
       itemCount: carousals.length,
       itemBuilder: (context, index, realIndex) {
-        return SizedBox(
-          width: double.infinity,
-          child: Image(
-            image: NetworkImage(
-              "http://${ApiUrl.url}:5005/carousals/${carousals[index].imagePath}",
-              scale: 1.0,
-            ),
-            fit: BoxFit.cover,
-          ),
-        );
+        return Container(
+            margin: const EdgeInsets.all(2),
+            width: double.infinity,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+              image: DecorationImage(
+                image: NetworkImage(
+                  "http://${ApiUrl.url}:5005/carousals/${carousals[index].imagePath}",
+                  scale: 1.0,
+                ),
+                fit: BoxFit.cover,
+              ),
+            ));
       },
       options: CarouselOptions(
         viewportFraction: 1.0,

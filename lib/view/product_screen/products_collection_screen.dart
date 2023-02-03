@@ -70,51 +70,62 @@ class ProductCollectionScreen extends StatelessWidget {
                           context,
                           values.productList[index].id,
                           values.categoryList[3].id),
-                      child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Image(
-                                    height: 120,
-                                    width: 120,
-                                    fit: BoxFit.fitHeight,
-                                    image: NetworkImage(
-                                        'http://${ApiUrl.url}:5005/products/${provider[index].image[0]}')),
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  SizedBox(
-                                    width: 240,
-                                    height: 45,
-                                    child: Text(
-                                      provider[index].name.toString(),
+                      child: Card(
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20)),
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Image(
+                                      height: 120,
+                                      width: 120,
+                                      fit: BoxFit.fitHeight,
+                                      image: NetworkImage(
+                                          'http://${ApiUrl.url}:5005/products/${provider[index].image[0]}')),
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    SizedBox(
+                                      width: 240,
+                                      height: 45,
+                                      child: Text(
+                                        provider[index].name.toString(),
+                                        maxLines: 3,
+                                        overflow: TextOverflow.fade,
+                                        textAlign: TextAlign.start,
+                                      ),
+                                    ),
+                                    ProductDescriptionStyleTwo(
+                                      text1: '₹${provider[index].price}',
+                                      text2:
+                                          '₹${(provider[index].price - provider[index].discountPrice).round()}',
+                                      text3: '${provider[index].offer}% off',
+                                      fonsize2: 16, fontsize: 16,
+                                      // rating: values.productList[index].rating.toString(),
+                                    ),
+                                    Text(
+                                      provider[index].rating,
                                       maxLines: 3,
                                       overflow: TextOverflow.fade,
                                       textAlign: TextAlign.start,
                                     ),
-                                  ),
-                                  ProductDescriptionStyleTwo(
-                                    text1: '₹${provider[index].price}',
-                                    text2:
-                                        '₹${(provider[index].price - provider[index].discountPrice).round()}',
-                                    text3: '${provider[index].offer}% off',
-                                    fonsize2: 16, fontsize: 16,
-                                    // rating: values.productList[index].rating.toString(),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                          Divider(
-                            color: Color.fromARGB(26, 9, 9, 9),
-                          ),
-                        ],
+                                  ],
+                                ),
+                              ],
+                            ),
+                            // Divider(
+                            //   color: Color.fromARGB(26, 9, 9, 9),
+                            // ),
+                          ],
+                        ),
                       ),
                     );
                   },

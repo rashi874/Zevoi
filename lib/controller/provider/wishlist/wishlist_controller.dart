@@ -15,7 +15,7 @@ class WishListProvider with ChangeNotifier {
   bool loading = false;
   WishListModel? wishList;
   List favouriteProducts = [];
-  IconData icon = Icons.favorite_outlined;
+  // IconData icon = Icons.favorite_outlined ;
 
   void startLoading() {
     loading = true;
@@ -72,11 +72,11 @@ class WishListProvider with ChangeNotifier {
           );
           if (value == 201) {
             AppToast.showToast('Item added to Wishlist', Colors.green);
-            icon = Icons.favorite;
+            // icon = Icons.favorite;
             notifyListeners();
           } else if (value == 204) {
             AppToast.showToast('Item removed from Wishlist', Colors.green);
-            icon = Icons.favorite_outline_outlined;
+            // icon = Icons.favorite_outline_outlined;
             notifyListeners();
           }
         } else {

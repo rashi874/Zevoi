@@ -14,27 +14,24 @@ class BottomNavBar extends StatelessWidget {
       body: (context)
           .watch<BottomNavBarProvider>()
           .bottomScreen[bottomNavBarProvider.currentIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        elevation: 10,
-        currentIndex: bottomNavBarProvider.currentIndex,
-        onTap: (newIndex) => bottomNavBarProvider.newIndex(newIndex),
-        selectedItemColor: const Color.fromARGB(255, 220, 93, 93),
-        unselectedItemColor: const Color.fromARGB(255, 0, 0, 0),
-        selectedLabelStyle: const TextStyle(
-            color: Colors.black, fontSize: 12, fontWeight: FontWeight.bold),
-        // backgroundColor: Colors.amber[200],
-        items: const [
-          BottomNavigationBarItem(
-              icon: Icon(
-                Icons.line_axis,
-              ),
-              label: 'Home'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.favorite), label: 'Whishlist'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.shopping_cart), label: 'Cart'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.settings), label: 'Settings'),
+      bottomNavigationBar: NavigationBar(
+        // backgroundColor: colors.onPrimary,
+        // elevation: 10,
+        selectedIndex: bottomNavBarProvider.currentIndex,
+        onDestinationSelected: (index) {
+          bottomNavBarProvider.newIndex(index);
+        },
+        // onTap: (newIndex) => bottomNavBarProvider.newIndex(newIndex),
+        // selectedItemColor: Color.fromARGB(255, 209, 100, 117),
+        // unselectedItemColor: Color.fromARGB(255, 23, 20, 24),
+        // selectedLabelStyle: const TextStyle(
+        //     color: Colors.black, fontSize: 12, fontWeight: FontWeight.bold),
+        // // backgroundColor: Colors.amber[200],
+        destinations: const [
+          NavigationDestination(icon: Icon(Icons.line_axis), label: 'Home'),
+          NavigationDestination(icon: Icon(Icons.favorite), label: 'Whishlist'),
+          NavigationDestination(icon: Icon(Icons.shopping_cart), label: 'Cart'),
+          NavigationDestination(icon: Icon(Icons.settings), label: 'Settings'),
         ],
       ),
     );

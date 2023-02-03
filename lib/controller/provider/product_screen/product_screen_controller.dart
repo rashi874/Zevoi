@@ -14,7 +14,7 @@ class ProductProvider with ChangeNotifier {
   bool loading = false;
   Product? product;
   String? productId;
-  String? productSize;
+  String? productSize = '4';
 
   void goToCart(BuildContext context) {
     Navigator.of(context).pushNamed(RouteNames.cartScreen);

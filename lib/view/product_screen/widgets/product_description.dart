@@ -28,7 +28,10 @@ class ProductDescription extends StatelessWidget {
       children: [
         Text(
           productName,
-          style: const TextStyle(fontSize: 18),
+          style: Theme.of(context)
+              .textTheme
+              .titleMedium!
+              .copyWith(fontWeight: FontWeight.w600),
         ),
         AppSizedBoxes.sizedboxH8,
         Container(
@@ -71,7 +74,7 @@ class ProductDescription extends StatelessWidget {
               style: TextStyle(color: Colors.green),
             ),
             kboxw5,
-            Text('₹${fee}')
+            Text('₹$fee')
           ],
         ),
         // kbox20,

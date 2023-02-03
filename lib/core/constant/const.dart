@@ -13,6 +13,8 @@ const kboxw20 = SizedBox(
 const kboxw5 = SizedBox(
   width: 5,
 );
+
+
 final List<String> imgList = [
   'https://www.bigcmobiles.com/media/slidebanner/w/h/whatsapp_image_2022-12-16_at_10.18.02_am.jpeg',
   'https://pisces.bbystatic.com/image2/BestBuy_US/dam/SOL-91600-rainbow-hero-sv_der-33deb27e-3938-4ff5-ab24-73e3758bdf44.jpg',

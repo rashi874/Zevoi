@@ -6,8 +6,11 @@ class CustomBottomContainer extends StatelessWidget {
     required this.containerColor,
     required this.text,
     required this.ontap,
+    required this.fontcolor,
+    
   });
   final Color containerColor;
+  final Color fontcolor;
   final String text;
   final void Function() ontap;
   @override
@@ -21,8 +24,8 @@ class CustomBottomContainer extends StatelessWidget {
         child: Center(
           child: Text(
             text,
-            style: const TextStyle(
-              color: Color.fromARGB(255, 5, 5, 5),
+            style:  TextStyle(
+              color:fontcolor,
               fontWeight: FontWeight.bold,
             ),
           ),

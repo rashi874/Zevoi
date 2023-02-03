@@ -9,7 +9,7 @@ class CartGetModel {
   String id;
   List<ProductElement> products;
   int totalPrice;
-  int totalDiscount;
+  dynamic totalDiscount;
 
   factory CartGetModel.fromJson(Map<String, dynamic> json) => CartGetModel(
         id: json["_id"],
@@ -34,7 +34,7 @@ class ProductElement {
   String size;
   int qty;
   int price;
-  int discountPrice;
+  dynamic discountPrice;
   String id;
 
   factory ProductElement.fromJson(Map<String, dynamic> json) => ProductElement(
@@ -62,7 +62,7 @@ class Product {
   String id;
   String name;
   int price;
-  int discountPrice;
+  dynamic discountPrice;
   int offer;
   String rating;
   List<String> size;

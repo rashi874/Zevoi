@@ -21,18 +21,18 @@ class CartScreen extends StatelessWidget {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       cartScreenProvider.getCartItems();
     });
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: AppColors.backgroundColor,
-        appBar: AppBar(
-          title: const Text(
-            'My Cart',
-            style: TextStyle(fontSize: 18),
-          ),
-          // backgroundColor: AppColors.transparentColor,
-          elevation: 0,
+    return Scaffold(
+      // backgroundColor: AppColors.backgroundColor,
+      appBar: AppBar(
+        title: const Text(
+          'My Cart',
+          style: TextStyle(fontSize: 18),
         ),
-        body: Consumer<CartProvider>(
+        // backgroundColor: AppColors.transparentColor,
+        elevation: 0,
+      ),
+      body: SafeArea(
+        child: Consumer<CartProvider>(
           builder: (context, values, _) {
             return values.loading == true
                 ? SizedBox(
@@ -69,7 +69,7 @@ class CartScreen extends StatelessWidget {
                               padding: const EdgeInsets.all(8.0),
                               child: Column(
                                 children: [
-                                  const Divider(thickness: 4),
+                                  const Divider(thickness: 1),
                                   ListView.separated(
                                     physics:
                                         const NeverScrollableScrollPhysics(),
@@ -95,28 +95,31 @@ class CartScreen extends StatelessWidget {
                                             offer: values.cartList!
                                                 .products[index].product.offer
                                                 .toString(),
-                                            ontap1: () => values
-                                                .incrementOrDecrementQuantity(
-                                              -1,
-                                              values.cartList!.products[index]
-                                                  .product.id,
-                                              values.cartList!.products[index]
-                                                  .size,
-                                              values.cartList!.products[index]
-                                                  .qty,
-                                            ),
-                                            ontap2: () => values
-                                                .incrementOrDecrementQuantity(
-                                              1,
-                                              values.cartList!.products[index]
-                                                  .product.id,
-                                              values.cartList!.products[index]
-                                                  .size,
-                                              values.cartList!.products[index]
-                                                  .qty,
-                                            ),
+                                            ontap1: () {},
+                                            //     .incrementOrDecrementQuantity(
+                                            //   -1,
+                                            //   values.cartList!.products[index]
+                                            //       .product.id,
+                                            //   values.cartList!.products[index]
+                                            //       .size,
+                                            //   values.cartList!.products[index]
+                                            //       .qty,
+                                            // ),
+                                            ontap2: () {},
                                             quantity: values
                                                 .cartList!.products[index].qty,
+                                            //  () => values
+                                            //     .incrementOrDecrementQuantity(
+                                            //   1,
+                                            //   values.cartList!.products[index]
+                                            //       .product.id,
+                                            //   values.cartList!.products[index]
+                                            //       .size,
+                                            //   values.cartList!.products[index]
+                                            //       .qty,
+                                            // ),
+                                            // quantity: values
+                                            //     .cartList!.products[index].qty,
                                           ),
                                           AppSizedBoxes.sizedboxH8,
                                           const Divider(thickness: 1),
@@ -142,12 +145,12 @@ class CartScreen extends StatelessWidget {
                                             children: [
                                               CustomCartButton(
                                                 text: 'Remove',
-                                                onTap: () =>
-                                                    values.removeFromCart(values
-                                                        .cartList!
-                                                        .products[index]
-                                                        .product
-                                                        .id),
+                                                onTap: () {},
+                                                // values.removeFromCart(values
+                                                //     .cartList!
+                                                //     .products[index]
+                                                //     .product
+                                                //     .id),
                                                 color: AppColors.redColor,
                                                 icon:
                                                     Icons.delete_forever_sharp,
@@ -155,18 +158,19 @@ class CartScreen extends StatelessWidget {
                                               AppSizedBoxes.sizedboxW15,
                                               CustomCartButton(
                                                 text: 'Buy now',
-                                                onTap: () =>
-                                                    values.toAddressScreen(
-                                                  context,
-                                                  OrderSummaryScreenEnum
-                                                      .buyOneProductOrderSummaryScreen,
-                                                  values.cartList!.id,
-                                                  values
-                                                      .cartList!
-                                                      .products[index]
-                                                      .product
-                                                      .id,
-                                                ),
+                                                onTap: () {},
+                                                // values
+                                                // () => values.toAddressScreen(
+                                                //   context,
+                                                //   OrderSummaryScreenEnum
+                                                //       .buyOneProductOrderSummaryScreen,
+                                                //   values.cartList!.id,
+                                                //   values
+                                                //       .cartList!
+                                                //       .products[index]
+                                                //       .product
+                                                //       .id,
+                                                // ),
                                                 color: AppColors.blueColor,
                                                 icon: Icons.shopify,
                                               ),
@@ -201,12 +205,14 @@ class CartScreen extends StatelessWidget {
                           Align(
                             alignment: Alignment.bottomCenter,
                             child: CustomBottomPlaceOrderWidget(
-                              ontap: () => cartScreenProvider.toAddressScreen(
-                                context,
-                                OrderSummaryScreenEnum.normalOrderSummaryScreen,
-                                null,
-                                null,
-                              ),
+                              ontap: () {},
+
+                              // ontap: () => cartScreenProvider.toAddressScreen(
+                              //   context,
+                              //   OrderSummaryScreenEnum.normalOrderSummaryScreen,
+                              //   null,
+                              //   null,
+                              // ),
                               totalAmount:
                                   values.cartList!.totalPrice.toString(),
                             ),

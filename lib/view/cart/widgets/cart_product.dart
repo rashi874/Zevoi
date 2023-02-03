@@ -40,10 +40,10 @@ class CartProducts extends StatelessWidget {
                   color: AppColors.whiteColor54,
                   child: Image(
                     height: 110,
-                    width: 110,
-                    fit: BoxFit.fill,
+                    // width: 110,
+                    fit: BoxFit.cover,
                     image: NetworkImage(
-                        'http://${ApiUrl.url}:5008/products/$image'),
+                        'http://${ApiUrl.url}:5005/products/$image'),
                   ),
                 ),
               ],
@@ -57,13 +57,13 @@ class CartProducts extends StatelessWidget {
                   Text(
                     proudctName,
                     overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleSmall!
+                        .copyWith(fontWeight: FontWeight.w600),
                   ),
                   AppSizedBoxes.sizedboxH5,
-                  Text('Size: $size'),
+                  // Text('Size: $size'),
                   AppSizedBoxes.sizedboxH5,
                   CartPruductTextStyle(
                     text1: linethroughPrice,
