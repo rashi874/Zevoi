@@ -25,7 +25,7 @@ class BottomloginSignupText extends StatelessWidget {
             TextSpan(
                 text: text2,
                 style: const TextStyle(
-                  color: Color.fromARGB(255, 220, 93, 93),
+                  color: Color.fromARGB(255, 207, 205, 92),
                 ),
                 recognizer: TapGestureRecognizer()
                   ..onTap = () {

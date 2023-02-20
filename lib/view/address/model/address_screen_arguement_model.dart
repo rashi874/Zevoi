@@ -1,5 +1,5 @@
 
-import '../../order_summary/order_summary_screen_enum.dart';
+import '../../../model/order_summary/order_summary_screen_enum.dart';
 
 class AddressScreenArguementModel {
   final OrderSummaryScreenEnum screenCheck;

@@ -21,7 +21,7 @@ class CustomMainButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(8.0),
             // side: BorderSide(color: Colors.red),
           ),
-          backgroundColor: const Color.fromARGB(255, 220, 93, 93),
+          backgroundColor: const Color.fromARGB(255, 207, 205, 92),
           foregroundColor: Colors.white,
         ),
         onPressed: onPressed,

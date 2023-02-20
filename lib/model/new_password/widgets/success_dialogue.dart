@@ -26,10 +26,10 @@ class SuccessDialouge extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: const [
-              Image(
-                image: AssetImage(
-                    'assets/create_new_password_screen_assets/password_reset_success.png'),
-              ),
+              // Image(
+              //   image: AssetImage(
+              //       'assets/create_new_password_screen_assets/password_reset_success.png'),
+              // ),
               Text(
                 'Success!',
                 // style: AppTextStyles.textStyle2,

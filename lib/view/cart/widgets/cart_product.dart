@@ -22,7 +22,7 @@ class CartProducts extends StatelessWidget {
   final String proudctName;
   final String size;
   final int prouductPrice;
-  final String linethroughPrice;
+  final dynamic linethroughPrice;
   final String offer;
   final void Function() ontap1;
   final void Function() ontap2;
@@ -37,7 +37,7 @@ class CartProducts extends StatelessWidget {
             Column(
               children: [
                 Container(
-                  color: AppColors.whiteColor54,
+                  color: AppColors.whiteColor,
                   child: Image(
                     height: 110,
                     // width: 110,
@@ -45,6 +45,11 @@ class CartProducts extends StatelessWidget {
                     image: NetworkImage(
                         'http://${ApiUrl.url}:5005/products/$image'),
                   ),
+                ),
+                ProductQuantity(
+                  ontap1: ontap1,
+                  ontap2: ontap2,
+                  quantity: quantity,
                 ),
               ],
             ),
@@ -59,8 +64,8 @@ class CartProducts extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                     style: Theme.of(context)
                         .textTheme
-                        .titleSmall!
-                        .copyWith(fontWeight: FontWeight.w600),
+                        .titleMedium!
+                        .copyWith(fontWeight: FontWeight.w500),
                   ),
                   AppSizedBoxes.sizedboxH5,
                   // Text('Size: $size'),
@@ -71,11 +76,6 @@ class CartProducts extends StatelessWidget {
                     text3: offer,
                   ),
                   AppSizedBoxes.sizedboxH12,
-                  ProductQuantity(
-                    ontap1: ontap1,
-                    ontap2: ontap2,
-                    quantity: quantity,
-                  ),
                 ],
               ),
             )

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-import '../../routes/rout_names.dart';
+import '../../../routes/rout_names.dart';
 
 class SplashProvider with ChangeNotifier {
   FlutterSecureStorage storage = const FlutterSecureStorage();

@@ -84,6 +84,24 @@ class HomeService {
     return null;
   }
 
+  Future<List<Product>?> searchProducts(String searchValue) async {
+    Dio dios = await Interceptorapi().getApiUser();
+    try {
+      final Response response = await dios.get(
+          ApiUrl.apiUrl + ApiEndPoints.product,
+          queryParameters: {"search": searchValue});
+      if (response.statusCode! >= 200 && response.statusCode! <= 299) {
+        final List<Product> products =
+            (response.data as List).map((e) => Product.fromJson(e)).toList();
+
+        return products;
+      }
+    } catch (e) {
+      AppExceptions.errorHandler(e);
+    }
+    return null;
+  }
+
   Future<Product?> getAProduct(String productId) async {
     Dio dios = await Interceptorapi().getApiUser();
     try {

@@ -38,210 +38,222 @@ class ProductViewScreen extends StatelessWidget {
       productProvider.getAProduct();
     });
     return Scaffold(
-      // backgroundColor: AppColors.backgroundColor,
-      appBar: AppBar(
-        leadingWidth: 35,
-        title: const Icon(
-          Icons.line_axis,
-          size: 30,
-          color: Color.fromARGB(255, 12, 11, 11),
+        // backgroundColor: AppColors.backgroundColor,
+        appBar: AppBar(
+          // leadingWidth: 35,
+          title: const Icon(
+            Icons.line_axis,
+            size: 30,
+            color: Color.fromARGB(255, 12, 11, 11),
+          ),
+          // elevation: 0,
+          // backgroundColor: AppColors.transparentColor,
         ),
-        // elevation: 0,
-        // backgroundColor: AppColors.transparentColor,
-      ),
-      body: Consumer3<ProductProvider, WishListProvider, CartProvider>(
-        builder: (context, values, values2, values3, _) {
-          final product = values.product;
-          return values.loading == true
-              ? SizedBox(
-                  height: MediaQuery.of(context).size.height / 1.3,
-                  width: double.infinity,
-                  child: const Center(
-                    child: LoadingWidget(),
-                  ),
-                )
-              : Stack(
-                  children: [
-                    SingleChildScrollView(
-                      padding: const EdgeInsets.all(10),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            color: Colors.white,
-                            child: Column(
-                              children: [
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.only(right: 9, top: 8),
-                                  child: Align(
-                                    alignment: Alignment.topRight,
-                                    child: GestureDetector(
-                                      onTap: () =>
-                                          values2.addOrRemoveFromWishList(
-                                              productProvider.productId
-                                                  .toString()),
-                                      child: Card(
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child:
-                                              //  Icon(
-                                              //   // values2.icon,
-                                              // // values2.favouriteProducts.contains(values.product!.id)
-                                              // )
-                                              Icon(
-                                            values2.favouriteProducts.contains(
-                                                    values.product!.id)
-                                                ? Icons.favorite
-                                                : Icons
-                                                    .favorite_outline_outlined,
-                                            color: values2.favouriteProducts
-                                                    .contains(
-                                                        values.product!.id)
-                                                ? Color.fromARGB(
-                                                    255, 24, 11, 10)
-                                                : AppColors.blackcolor,
-                                            size: 30,
+        body: TweenAnimationBuilder(
+            tween: Tween(begin: 0.0, end: 1.0),
+            duration: const Duration(milliseconds: 1500),
+            builder: (BuildContext context, Object? value, Widget? child) {
+              return Consumer3<ProductProvider, WishListProvider, CartProvider>(
+                builder: (context, values, values2, values3, _) {
+                  final product = values.product;
+                  return values.loading == true
+                      ? SizedBox(
+                          height: MediaQuery.of(context).size.height / 1.3,
+                          width: double.infinity,
+                          child: const Center(
+                            child: LoadingWidget(),
+                          ),
+                        )
+                      : Stack(
+                          children: [
+                            SingleChildScrollView(
+                              padding: const EdgeInsets.all(10),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    color: Colors.white,
+                                    child: Column(
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              right: 9, top: 8),
+                                          child: Align(
+                                            alignment: Alignment.topRight,
+                                            child: GestureDetector(
+                                              onTap: () => values2
+                                                  .addOrRemoveFromWishList(
+                                                      productProvider.productId
+                                                          .toString()),
+                                              child: Card(
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child:
+                                                      //  Icon(
+                                                      //   // values2.icon,
+                                                      // // values2.favouriteProducts.contains(values.product!.id)
+                                                      // )
+                                                      Icon(
+                                                    values2.favouriteProducts
+                                                            .contains(values
+                                                                .product!.id)
+                                                        ? Icons.favorite
+                                                        : Icons
+                                                            .favorite_outline_outlined,
+                                                    color: values2
+                                                            .favouriteProducts
+                                                            .contains(values
+                                                                .product!.id)
+                                                        ? Color.fromARGB(
+                                                            255, 24, 11, 10)
+                                                        : AppColors.blackcolor,
+                                                    size: 30,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
                                           ),
                                         ),
-                                      ),
+                                        ImageCarousalsWidget(
+                                          images: product!.image,
+                                        ),
+                                      ],
                                     ),
                                   ),
-                                ),
-                                ImageCarousalsWidget(
-                                  images: product!.image,
-                                ),
-                              ],
-                            ),
-                          ),
-                          AppSizedBoxes.sizedboxH12,
-                          TextButton(
-                            onPressed: () {
-                              Navigator.of(context).pushNamed(
-                                ProductCollectionScreen.routeName,
-                                arguments: product.category,
-                              );
-                            },
-                            child: Text(
-                              'View more from ${data.name}',
-                              style: const TextStyle(
-                                  fontSize: 14,
-                                  color: Color.fromARGB(255, 243, 145, 33)),
-                            ),
-                          ),
-                          Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                ProductDescription(
-                                  productName: product.name,
-                                  rating: product.rating,
-                                  linethroughPrice: '₹${product.price}',
-                                  currentPrice:
-                                      '₹${(product.price - product.discountPrice).round()}',
-                                  offer: '${product.offer}% off',
-                                  fee: product.deliveryFee,
-                                ),
-                                const Text(
-                                  'Highlights',
-                                  style: TextStyle(
-                                    fontSize: 17,
-                                    color: Color.fromARGB(255, 0, 0, 0),
+                                  AppSizedBoxes.sizedboxH12,
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pushNamed(
+                                        ProductCollectionScreen.routeName,
+                                        arguments: product.category,
+                                      );
+                                    },
+                                    child: Text(
+                                      'View more from ${data.name}',
+                                      style: const TextStyle(
+                                          fontSize: 14,
+                                          color: Color.fromARGB(
+                                              255, 197, 196, 133)),
+                                    ),
                                   ),
-                                ),
-                                kbox10,
-                                ProductsDetails(
-                                  detailes: 'RAM :',
-                                  title: '${product.details.ram} GB',
-                                ),
-                                ProductsDetails(
-                                  title: '${product.details.frontCam}',
-                                  detailes: 'FrontCam :',
-                                ),
-                                ProductsDetails(
-                                  title: '${product.details.rearCam}',
-                                  detailes: 'RearCam :',
-                                ),
-                                ProductsDetails(
-                                  detailes: 'Display Type :',
-                                  title: '${product.details.display}',
-                                ),
-                                ProductsDetails(
-                                  title: '${product.details.processor}',
-                                  detailes: 'Processor :',
-                                ),
-                                ProductsDetails(
-                                  title: '${product.details.battery}',
-                                  detailes: 'Battery :',
-                                ),
-                                ProductsDetails(
-                                  title: product.description,
-                                  detailes: 'Description :',
-                                ),
-                              ]),
-                          kbox20,
-                        ],
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: SizedBox(
-                        // height: 100,
-                        // width: double.infinity,
-                        child: Row(
-                          children: [
-                            CustomBottomContainer(
-                              containerColor:
-                                  Color.fromARGB(255, 246, 221, 221),
-                              text: values3.cartItemsId
-                                      .contains(values.product!.id)
-                                  ? 'Go to cart'
-                                  : 'Add to cart',
-                              ontap: () => values3.cartItemsId
-                                      .contains(values.product!.id)
-                                  ? values.goToCart(context)
-                                  : values3.addToCart(
-                                      values.product!.id.toString(),
-                                      values.productSize,
-                                      null),
-                              fontcolor: AppColors.blackcolor,
+                                  Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        ProductDescription(
+                                          productName: product.name,
+                                          rating: product.rating,
+                                          linethroughPrice: '₹${product.price}',
+                                          currentPrice:
+                                              '₹${(product.price - product.discountPrice).round()}',
+                                          offer: '${product.offer}% off',
+                                          fee: product.deliveryFee,
+                                        ),
+                                        const Text(
+                                          'Highlights',
+                                          style: TextStyle(
+                                            fontSize: 17,
+                                            color: Color.fromARGB(255, 0, 0, 0),
+                                          ),
+                                        ),
+                                        kbox10,
+                                        ProductsDetails(
+                                          detailes: 'RAM :',
+                                          title: '${product.details.ram} GB',
+                                        ),
+                                        ProductsDetails(
+                                          title: '${product.details.frontCam}',
+                                          detailes: 'FrontCam :',
+                                        ),
+                                        ProductsDetails(
+                                          title: '${product.details.rearCam}',
+                                          detailes: 'RearCam :',
+                                        ),
+                                        ProductsDetails(
+                                          detailes: 'Display Type :',
+                                          title: '${product.details.display}',
+                                        ),
+                                        ProductsDetails(
+                                          title: '${product.details.processor}',
+                                          detailes: 'Processor :',
+                                        ),
+                                        ProductsDetails(
+                                          title: '${product.details.battery}',
+                                          detailes: 'Battery :',
+                                        ),
+                                        ProductsDetails(
+                                          title: product.description,
+                                          detailes: 'Description :',
+                                        ),
+                                      ]),
+                                  kbox20,
+                                ],
+                              ),
                             ),
-                            CustomBottomContainer(
-                              containerColor: Color.fromARGB(255, 11, 5, 5),
-                              text: 'Buy now',
-                              ontap: () async {
-                                values3.cartItemsId.contains(values.product!.id)
-                                    ? values.toAddressScreen(
-                                        context,
-                                        OrderSummaryScreenEnum
-                                            .buyOneProductOrderSummaryScreen,
-                                        values3.cartList!.id,
-                                        product.id)
-                                    : values3
-                                        .addToCart(
-                                            values.product!.id.toString(),
-                                            values.productSize,
-                                            OrderSummaryScreenEnum
-                                                .buyOneProductOrderSummaryScreen)
-                                        .then((value) {
-                                        values.toAddressScreen(
-                                            context,
-                                            OrderSummaryScreenEnum
-                                                .buyOneProductOrderSummaryScreen,
-                                            values3.cartList!.id,
-                                            product.id);
-                                      });
-                              },
-                              fontcolor: AppColors.whiteColor,
-                            ),
+                            Align(
+                              alignment: Alignment.bottomCenter,
+                              child: SizedBox(
+                                // height: 100,
+                                // width: double.infinity,
+                                child: Row(
+                                  children: [
+                                    CustomBottomContainer(
+                                      containerColor:
+                                          Color.fromARGB(255, 197, 196, 133),
+                                      text: values3.cartItemsId
+                                              .contains(values.product!.id)
+                                          ? 'Go to cart'
+                                          : 'Add to cart',
+                                      ontap: () => values3.cartItemsId
+                                              .contains(values.product!.id)
+                                          ? values.goToCart(context)
+                                          : values3.addToCart(
+                                              values.product!.id.toString(),
+                                              values.productSize,
+                                              null),
+                                      fontcolor: AppColors.blackcolor,
+                                    ),
+                                    CustomBottomContainer(
+                                      containerColor:
+                                          Color.fromARGB(255, 11, 5, 5),
+                                      text: 'Buy now',
+                                      ontap: () async {
+                                        values3.cartItemsId
+                                                .contains(values.product!.id)
+                                            ? values.toAddressScreen(
+                                                context,
+                                                OrderSummaryScreenEnum
+                                                    .buyOneProductOrderSummaryScreen,
+                                                values3.cartList!.id,
+                                                product.id)
+                                            : values3
+                                                .addToCart(
+                                                    values.product!.id
+                                                        .toString(),
+                                                    values.productSize,
+                                                    OrderSummaryScreenEnum
+                                                        .buyOneProductOrderSummaryScreen)
+                                                .then((value) {
+                                                values.toAddressScreen(
+                                                    context,
+                                                    OrderSummaryScreenEnum
+                                                        .buyOneProductOrderSummaryScreen,
+                                                    values3.cartList!.id,
+                                                    product.id);
+                                              });
+                                      },
+                                      fontcolor: AppColors.whiteColor,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            )
                           ],
-                        ),
-                      ),
-                    )
-                  ],
-                );
-        },
-      ),
-    );
+                        );
+                },
+              );
+            }));
   }
 }
 

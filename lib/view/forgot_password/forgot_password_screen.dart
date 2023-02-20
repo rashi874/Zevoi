@@ -12,62 +12,60 @@ class ForgotPassword extends StatelessWidget {
   Widget build(BuildContext context) {
     final forgotPasswordProvider =
         Provider.of<ForgotPasswordProvider>(context, listen: false);
-    return SafeArea(
-      child: Scaffold(
-        // backgroundColor: AppColors.backgroundColor,
-        appBar: AppBar(
-          title: const Text(
-            'Find your Account',
-            // style: AppTextStyles.appBarTextStyle,
-          ),
-          elevation: 0,
-          // backgroundColor: AppColors.transparentColor,
+    return Scaffold(
+      // backgroundColor: AppColors.backgroundColor,
+      appBar: AppBar(
+        title: const Text(
+          'Find your Account',
+          // style: AppTextStyles.appBarTextStyle,
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Center(
-            child: SingleChildScrollView(
-              reverse: true,
-              child: Form(
-                key: formKey,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    // const Image(
-                    //   height: 200,
-                    //   width: 200,
-                    //   // image: AssetImage(
-                    //   //     'assets/forgot_ password_screen_assets/start.png'),
-                    // ),
-                    // AppSizedBoxes.sizedboxH35,
-                    CustomTextfiled(
-                      controller: forgotPasswordProvider.findAccountController,
-                      keyboardType: TextInputType.emailAddress,
-                      action: TextInputAction.done,
-                      icon: Icons.mail,
-                      hint: 'Email',
-                      obscure: false,
-                      validator: (value) => forgotPasswordProvider
-                          .findAccountTextfieldValidation(value),
-                    ),
-                    // AppSizedBoxes.sizedboxH50,
-                    Consumer<ForgotPasswordProvider>(
-                        builder: (context, values, _) {
-                      return values.loading == true
-                          ? const LoadingWidget()
-                          : ElevatedButton(
-                              onPressed: () {
-                                values.toOtpScreen(
-                                    context, formKey.currentState!);
-                              },
-                              child: const Text(
-                                'Continue',
-                              ),
-                            );
-                    }),
-                  ],
-                ),
+        elevation: 0,
+        // backgroundColor: AppColors.transparentColor,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Center(
+          child: SingleChildScrollView(
+            reverse: true,
+            child: Form(
+              key: formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  // const Image(
+                  //   height: 200,
+                  //   width: 200,
+                  //   // image: AssetImage(
+                  //   //     'assets/forgot_ password_screen_assets/start.png'),
+                  // ),
+                  // AppSizedBoxes.sizedboxH35,
+                  CustomTextfiled(
+                    controller: forgotPasswordProvider.findAccountController,
+                    keyboardType: TextInputType.emailAddress,
+                    action: TextInputAction.done,
+                    icon: Icons.mail,
+                    hint: 'Email',
+                    obscure: false,
+                    validator: (value) => forgotPasswordProvider
+                        .findAccountTextfieldValidation(value),
+                  ),
+                  // AppSizedBoxes.sizedboxH50,
+                  Consumer<ForgotPasswordProvider>(
+                      builder: (context, values, _) {
+                    return values.loading == true
+                        ? const LoadingWidget()
+                        : ElevatedButton(
+                            onPressed: () {
+                              values.toOtpScreen(
+                                  context, formKey.currentState!);
+                            },
+                            child: const Text(
+                              'Continue',
+                            ),
+                          );
+                  }),
+                ],
               ),
             ),
           ),

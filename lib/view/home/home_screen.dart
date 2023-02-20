@@ -24,56 +24,61 @@ class HomeScreen extends StatelessWidget {
       Provider.of<HomeScreenProvider>(context, listen: false).getProducts();
     });
 
-    return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: 80,
-        centerTitle: true,
-        automaticallyImplyLeading: false,
-        // backgroundColor: colors.background,
-        elevation: 0,
-        leadingWidth: 120,
-        leading: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 2),
-          child: Row(
-            children: [
-              const Icon(
-                Icons.line_axis,
-                size: 55,
-                color: Color.fromARGB(255, 3, 17, 47),
-              ),
-              Text(
-                'Zevoi',
-                style: Theme.of(context)
-                    .textTheme
-                    .titleMedium!
-                    .copyWith(fontWeight: FontWeight.w600),
-              ),
-            ],
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          toolbarHeight: 80,
+          centerTitle: true,
+          automaticallyImplyLeading: false,
+          surfaceTintColor: Colors.white,
+          elevation: 0,
+          leadingWidth: 120,
+          leading: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 2),
+            child: Row(
+              children: [
+                const Icon(
+                  Icons.line_axis,
+                  size: 55,
+                  color: Color.fromARGB(255, 184, 183, 82),
+                ),
+                Text(
+                  'Zevoi',
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleLarge!
+                      .copyWith(fontWeight: FontWeight.w600),
+                ),
+              ],
+            ),
           ),
+          actions: <Widget>[
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: 5),
+              width: 90,
+              child: IconButton(
+                icon: const Icon(
+                  CupertinoIcons.search,
+                  size: 23,
+                  // color: Color.fromARGB(255, 0, 0, 0),
+                ),
+                style: IconButton.styleFrom(
+                  foregroundColor: colors.onPrimary,
+                  backgroundColor: colors.primary,
+                  disabledBackgroundColor: colors.onSurface.withOpacity(0.12),
+                  hoverColor: colors.onPrimary.withOpacity(0.08),
+                  focusColor: colors.onPrimary.withOpacity(0.12),
+                  highlightColor: colors.onPrimary.withOpacity(0.12),
+                ),
+                onPressed: () {
+                  // do something
+                },
+              ),
+            ),
+            // kboxw20,
+          ],
         ),
-        actions: <Widget>[
-          IconButton(
-            icon: const Icon(
-              CupertinoIcons.search,
-              size: 23,
-              // color: Color.fromARGB(255, 0, 0, 0),
-            ),
-            style: IconButton.styleFrom(
-              foregroundColor: colors.onPrimary,
-              backgroundColor: colors.primary,
-              disabledBackgroundColor: colors.onSurface.withOpacity(0.12),
-              hoverColor: colors.onPrimary.withOpacity(0.08),
-              focusColor: colors.onPrimary.withOpacity(0.12),
-              highlightColor: colors.onPrimary.withOpacity(0.12),
-            ),
-            onPressed: () {
-              // do something
-            },
-          )
-        ],
-      ),
-      body: SafeArea(
-        child: Consumer<HomeScreenProvider>(
+        body: Consumer<HomeScreenProvider>(
           builder: (context, value, child) {
             return SingleChildScrollView(
               child: Column(
@@ -86,14 +91,14 @@ class HomeScreen extends StatelessWidget {
                             ? Shimmer.fromColors(
                                 baseColor: const Color.fromARGB(36, 51, 51, 51),
                                 highlightColor:
-                                    const Color.fromARGB(55, 110, 109, 109),
-                                direction: ShimmerDirection.btt,
+                                    Color.fromARGB(119, 133, 133, 133),
+                                direction: ShimmerDirection.ltr,
                                 child: const ShimmerContainer(
                                   margin: EdgeInsets.all(5),
                                   height: 150,
                                   width: double.infinity,
                                   borderRadius: BorderRadius.all(
-                                    Radius.circular(5),
+                                    Radius.circular(10),
                                   ),
                                 ))
                             : CarousalSliderWidget(
@@ -123,9 +128,9 @@ class HomeScreen extends StatelessWidget {
                                   ? Shimmer.fromColors(
                                       baseColor:
                                           const Color.fromARGB(36, 51, 51, 51),
-                                      highlightColor: const Color.fromARGB(
-                                          55, 110, 109, 109),
-                                      direction: ShimmerDirection.btt,
+                                      highlightColor:
+                                          Color.fromARGB(119, 133, 133, 133),
+                                      direction: ShimmerDirection.ltr,
                                       child: SizedBox(
                                         height: 100,
                                         child: ListView.builder(
@@ -133,8 +138,8 @@ class HomeScreen extends StatelessWidget {
                                           scrollDirection: Axis.horizontal,
                                           itemBuilder: (context, index) {
                                             return Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
+                                              padding: EdgeInsets.symmetric(
+                                                  vertical: 8.0, horizontal: 5),
                                               child: Column(
                                                 children: [
                                                   ShimmerContainer(
@@ -144,7 +149,7 @@ class HomeScreen extends StatelessWidget {
                                                     width: 60,
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            50),
+                                                            18),
                                                   ),
                                                   kbox10,
                                                   const ShimmerContainer(
@@ -153,7 +158,7 @@ class HomeScreen extends StatelessWidget {
                                                     width: 50,
                                                     borderRadius:
                                                         BorderRadius.all(
-                                                      Radius.circular(2),
+                                                      Radius.circular(5),
                                                     ),
                                                   ),
                                                 ],
@@ -251,64 +256,62 @@ class HomeScreen extends StatelessWidget {
                     value.productList.isEmpty == true
                         ? Shimmer.fromColors(
                             baseColor: const Color.fromARGB(56, 51, 51, 51),
-                            highlightColor:
-                                const Color.fromARGB(55, 110, 109, 109),
+                            highlightColor: Color.fromARGB(119, 133, 133, 133),
+                            direction: ShimmerDirection.ltr,
                             child: GridView.builder(
-                                padding: const EdgeInsets.all(10),
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 5, horizontal: 9),
                                 physics: const ScrollPhysics(),
                                 shrinkWrap: true,
                                 itemCount: 10,
                                 gridDelegate:
                                     const SliverGridDelegateWithFixedCrossAxisCount(
                                         crossAxisCount: 2,
-                                        crossAxisSpacing: 8,
-                                        mainAxisSpacing: 8,
-                                        childAspectRatio: 1 / 1.4),
+                                        crossAxisSpacing: 10,
+                                        mainAxisSpacing: 10,
+                                        childAspectRatio: 1 / 1.7),
                                 itemBuilder: (BuildContext context, int index) {
-                                  return Center(
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: const [
-                                        ShimmerContainer(
-                                          margin: EdgeInsets.all(0),
-                                          height: 200,
-                                          width: double.infinity,
-                                          borderRadius: BorderRadius.all(
-                                            Radius.circular(5),
-                                          ),
+                                  return Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: const [
+                                      ShimmerContainer(
+                                        margin: EdgeInsets.all(0),
+                                        height: 225,
+                                        width: 190,
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(10),
                                         ),
-                                        kbox10,
-                                        ShimmerContainer(
-                                          margin: EdgeInsets.all(0),
-                                          height: 8,
-                                          width: 150,
-                                          borderRadius: BorderRadius.all(
-                                            Radius.circular(2),
-                                          ),
+                                      ),
+                                      kbox10,
+                                      ShimmerContainer(
+                                        margin: EdgeInsets.all(0),
+                                        height: 8,
+                                        width: 150,
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(2),
                                         ),
-                                        kbox10,
-                                        ShimmerContainer(
-                                          margin: EdgeInsets.all(0),
-                                          height: 8,
-                                          width: 100,
-                                          borderRadius: BorderRadius.all(
-                                            Radius.circular(2),
-                                          ),
+                                      ),
+                                      kbox10,
+                                      ShimmerContainer(
+                                        margin: EdgeInsets.all(0),
+                                        height: 8,
+                                        width: 100,
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(2),
                                         ),
-                                        kbox10,
-                                        ShimmerContainer(
-                                          margin: EdgeInsets.all(0),
-                                          height: 8,
-                                          width: 60,
-                                          borderRadius: BorderRadius.all(
-                                            Radius.circular(2),
-                                          ),
+                                      ),
+                                      kbox10,
+                                      ShimmerContainer(
+                                        margin: EdgeInsets.all(0),
+                                        height: 8,
+                                        width: 60,
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(2),
                                         ),
-                                      ],
-                                    ),
+                                      ),
+                                    ],
                                   );
                                 }))
                         : Consumer2<HomeScreenProvider, WishListProvider>(
@@ -323,7 +326,7 @@ class HomeScreen extends StatelessWidget {
                                         crossAxisCount: 2,
                                         crossAxisSpacing: 10,
                                         mainAxisSpacing: 15,
-                                        childAspectRatio: 1.0 / 1.3),
+                                        childAspectRatio: 1.0 / 1.5),
                                 itemBuilder: (BuildContext context, int index) {
                                   return GestureDetector(
                                     onTap: () => values.toProductScreen(

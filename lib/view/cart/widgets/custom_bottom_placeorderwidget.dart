@@ -13,15 +13,18 @@ class CustomBottomPlaceOrderWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
-        color: AppColors.backgroundColor,
-        border: Border(
-          top: BorderSide(
-            color: AppColors.dullWhitecolor,
-          ),
-        ),
+      margin: EdgeInsets.all(8),
+      padding: EdgeInsets.all(5),
+      decoration: BoxDecoration(
+        color: Color.fromARGB(255, 239, 248, 213),
+        borderRadius: BorderRadius.circular(10),
+        // border: Border(
+        //   top: BorderSide(
+        //     color: AppColors.dullWhitecolor,
+        //   ),
+        // ),
       ),
-      height: 60,
+      height: 70,
       width: double.infinity,
       child: Padding(
         padding: const EdgeInsets.only(bottom: 8.0),
@@ -50,7 +53,7 @@ class CustomBottomPlaceOrderWidget extends StatelessWidget {
                 height: 40,
                 width: MediaQuery.of(context).size.width / 2,
                 decoration: BoxDecoration(
-                  color: AppColors.yellowColor,
+                  color: Color.fromARGB(255, 243, 231, 126),
                   borderRadius: BorderRadius.circular(14),
                 ),
                 child: const Center(

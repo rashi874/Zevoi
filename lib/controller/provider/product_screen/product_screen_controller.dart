@@ -1,10 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:zevoyi/routes/rout_names.dart';
 import 'package:zevoyi/services/home/home_service.dart';
-
-import '../../../model/address/model/address_screen_arguement_model.dart';
 import '../../../model/home_models/product_model.dart';
 import '../../../model/order_summary/order_summary_screen_enum.dart';
+import '../../../view/address/model/address_screen_arguement_model.dart';
 
 class ProductProvider with ChangeNotifier {
   ProductProvider() {

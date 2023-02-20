@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:zevoyi/core/constant/const.dart';
-import '../../controller/splash/splash_controller.dart';
+import '../../controller/provider/splash/splash_controller.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -12,9 +13,18 @@ class SplashScreen extends StatelessWidget {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       splashProvider.splash(context);
     });
-    // SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-    //   systemNavigationBarColor: Color.fromARGB(255, 255, 255, 255),
-    // ));
+    // SystemChrome.setSystemUIOverlayStyle(
+    //   const SystemUiOverlayStyle(
+    //     statusBarIconBrightness: Brightness.dark,
+    //     systemNavigationBarColor: Color.fromARGB(255, 255, 255, 255),
+    //     systemNavigationBarIconBrightness: Brightness.dark,
+    //     systemNavigationBarDividerColor: Color.fromARGB(255, 255, 255, 255),
+    //     // systemStatusBarContrastEnforced: true,
+    //     // systemNavigationBarContrastEnforced: true,
+    //     statusBarColor: Color.fromARGB(0, 250, 250, 250),
+    //     statusBarBrightness: Brightness.dark,
+    //   ),
+    // );
 
     return Scaffold(
       body: Center(
@@ -30,7 +40,7 @@ class SplashScreen extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 35,
                     // fontFamily: 'Quicksand',
-                    color: Color.fromARGB(255, 220, 93, 93),
+                    color: Color.fromARGB(255, 207, 205, 92),
                     fontWeight: FontWeight.w800,
                   ),
                 ),
@@ -50,7 +60,7 @@ class SplashScreen extends StatelessWidget {
               child: Icon(
                 Icons.line_axis,
                 size: 50,
-                color: Color.fromARGB(255, 220, 93, 93),
+                color: Color.fromARGB(255, 207, 205, 92),
               ),
             ),
           ],

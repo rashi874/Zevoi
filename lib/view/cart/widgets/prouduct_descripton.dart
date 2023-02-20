@@ -11,7 +11,7 @@ class CartPruductTextStyle extends StatelessWidget {
     required this.text3,
     this.fontsize = 14,
   });
-  final String text1;
+  final dynamic text1;
   final int text2;
   final String text3;
   final double fontsize;
@@ -20,33 +20,26 @@ class CartPruductTextStyle extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Text(
-          '₹$text1',
-          style: TextStyle(
-            color: AppColors.whiteColor54,
-            decoration: TextDecoration.lineThrough,
-            overflow: TextOverflow.ellipsis,
-            fontSize: fontsize,
-          ),
-        ),
-        AppSizedBoxes.sizedboxW5,
-        Text(
-          '₹$text2',
-          style: TextStyle(
-            color: AppColors.whiteColor,
-            overflow: TextOverflow.ellipsis,
-            fontSize: fontsize,
-          ),
-        ),
-        AppSizedBoxes.sizedboxW5,
-        Text(
-          "$text3%",
-          style: TextStyle(
-            color: AppColors.greenColor,
-            overflow: TextOverflow.ellipsis,
-            fontSize: fontsize,
-          ),
-        ),
+        Text("₹${text1.toStringAsFixed(0)}",
+            style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                  fontWeight: FontWeight.w600,
+                  color: Colors.grey,
+                  decoration: TextDecoration.lineThrough,
+                  overflow: TextOverflow.ellipsis,
+                )),
+        AppSizedBoxes.sizedboxW10,
+        Text('₹$text2',
+            style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                  fontWeight: FontWeight.w600,
+                  overflow: TextOverflow.ellipsis,
+                )),
+        AppSizedBoxes.sizedboxW10,
+        Text("$text3%",
+            style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                  fontWeight: FontWeight.w600,
+                  color: Colors.green,
+                  overflow: TextOverflow.ellipsis,
+                )),
       ],
     );
   }

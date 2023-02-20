@@ -41,7 +41,7 @@ class LoginScreen extends StatelessWidget {
                     Icon(
                       Icons.line_axis,
                       size: 50,
-                      color: Color.fromARGB(255, 220, 93, 93),
+                      color: Color.fromARGB(255, 207, 205, 92),
                     ),
                   ],
                 ),

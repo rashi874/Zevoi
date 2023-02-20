@@ -15,7 +15,8 @@ class BottomNavBar extends StatelessWidget {
           .watch<BottomNavBarProvider>()
           .bottomScreen[bottomNavBarProvider.currentIndex],
       bottomNavigationBar: NavigationBar(
-        // backgroundColor: colors.onPrimary,
+        backgroundColor: Color.fromARGB(255, 255, 255, 255),
+        surfaceTintColor: Color.fromARGB(255, 255, 255, 255),
         // elevation: 10,
         selectedIndex: bottomNavBarProvider.currentIndex,
         onDestinationSelected: (index) {

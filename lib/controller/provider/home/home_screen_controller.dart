@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:zevoyi/model/home_models/carousal_model.dart';
+import 'package:zevoyi/utils/debouncer.dart';
 
 import '../../../model/home_models/category_model.dart';
 import '../../../model/home_models/product_model.dart';
@@ -16,6 +17,7 @@ class HomeScreenProvider with ChangeNotifier {
   List<CarousalModel> carousalList = [];
   List<CategoryModel> categoryList = [];
   List<Product> productList = [];
+  final debouncer = Debouncer(milliseconds: 200);
 
   bool loading = false;
 
@@ -97,6 +99,22 @@ class HomeScreenProvider with ChangeNotifier {
         loading = false;
         notifyListeners();
         null;
+      }
+    });
+  }
+
+  Future<void> searchProducts(String text) async {
+    loading = true;
+    notifyListeners();
+    await HomeService().searchProducts(text).then((value) {
+      if (value != null) {
+        productList = value;
+        notifyListeners();
+        loading = false;
+        notifyListeners();
+      } else {
+        loading = false;
+        notifyListeners();
       }
     });
   }

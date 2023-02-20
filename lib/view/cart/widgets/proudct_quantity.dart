@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-
 import '../../../helper/colors/app_colors.dart';
-import '../../../helper/sizedboxes/app_sizedboxes.dart';
 
 class ProductQuantity extends StatelessWidget {
   const ProductQuantity({
@@ -16,45 +14,38 @@ class ProductQuantity extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 30,
-      width: 100,
+      height: 40,
+      // width: 120,
       decoration: BoxDecoration(
-        color: AppColors.whiteColor,
+        color: Color.fromARGB(255, 181, 192, 129),
         borderRadius: BorderRadius.circular(20),
       ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            GestureDetector(
-              onTap: ontap1,
-              child: const Icon(
-                Icons.remove,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          IconButton(
+            color: AppColors.blackcolor,
+            onPressed: ontap1,
+            icon: const Icon(Icons.remove),
+          ),
+          FittedBox(
+            child: Text(
+              '$quantity',
+              style: const TextStyle(
                 color: AppColors.blackcolor,
+                fontWeight: FontWeight.bold,
+                fontSize: 18,
               ),
             ),
-            AppSizedBoxes.sizedboxW3,
-            FittedBox(
-              child: Text(
-                quantity.toString(),
-                style: const TextStyle(
-                  color: AppColors.blackcolor,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
-                ),
-              ),
-            ),
-            AppSizedBoxes.sizedboxW3,
-            GestureDetector(
-              onTap: ontap2,
-              child: const Icon(
-                Icons.add,
-                color: AppColors.blackcolor,
-              ),
-            )
-          ],
-        ),
+          ),
+          IconButton(
+            iconSize: 25,
+            splashRadius: 2,
+            color: Colors.black,
+            onPressed: ontap2,
+            icon: const Icon(Icons.add),
+          ),
+        ],
       ),
     );
   }

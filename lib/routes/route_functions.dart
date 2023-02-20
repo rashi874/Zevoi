@@ -1,17 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:zevoyi/routes/rout_names.dart';
+import 'package:zevoyi/view/add_address/add_new_address_screen.dart';
+import 'package:zevoyi/view/add_address/model/addaddress_arguement_model.dart';
+import 'package:zevoyi/view/address/address_screen.dart';
+import 'package:zevoyi/view/address/model/address_screen_arguement_model.dart';
 import 'package:zevoyi/view/home/home_screen.dart';
 import 'package:zevoyi/view/login/login_screen.dart';
+import 'package:zevoyi/view/order_detials_screen/model/order_detail_argument_model.dart';
+import 'package:zevoyi/view/order_detials_screen/order_details.dart';
+import 'package:zevoyi/view/order_summery/model/order_summery_argument_model.dart';
+import 'package:zevoyi/view/order_summery/order_summery.dart';
+import 'package:zevoyi/view/orders/model/order_placed_screen_arguement_model.dart';
+import 'package:zevoyi/view/orders/myorders_screen.dart';
+import 'package:zevoyi/view/orders/widgets/order_placed_screen.dart';
 import 'package:zevoyi/view/otp/otp_screen.dart';
 import 'package:zevoyi/view/product_screen/product_screen.dart';
-import 'package:zevoyi/view/wish_list/register/register_screen.dart';
 import 'package:zevoyi/view/screens/splash_screen.dart';
+import 'package:zevoyi/view/search/search_screen.dart';
+import 'package:zevoyi/view/wish_list/register/register_screen.dart';
 
 import '../model/new_password/model/newpassword_screen_model.dart';
 import '../model/new_password/new_password_screen.dart';
 import '../model/otp_model/otp_screen_arguement_model.dart';
 import '../view/forgot_password/forgot_password_screen.dart';
-import '../view/home/model/product_collection_model.dart';
 import '../view/product_screen/products_collection_screen.dart';
 import '../view/product_screen/widgets/utils/prouductid_model.dart';
 import '../view/widgets/bottom_nav_bar.dart';
@@ -72,6 +83,56 @@ class AppRoutes {
           builder: (context) => ProductViewScreen(
             productId: args.productId,
             categoryId: args.categoryId,
+          ),
+        );
+      case RouteNames.addressScreen:
+        final args = settings.arguments as AddressScreenArguementModel;
+        return MaterialPageRoute(
+          builder: (context) => AddressScreen(
+            screenCheck: args.screenCheck,
+            cartId: args.cartId,
+            productId: args.productId,
+            visibility: args.visibility,
+          ),
+        );
+      case RouteNames.addNewAddressScreen:
+        final args = settings.arguments as AddNewAddressArguemnetModel;
+        return MaterialPageRoute(
+          builder: (context) => AddNewAddressScreen(
+            addressScreenCheck: args.addressScreenCheck,
+            addressId: args.addressId,
+          ),
+        );
+      case RouteNames.searchScreen:
+        return MaterialPageRoute(builder: (context) => const SearchScreen());
+      case RouteNames.orderScreen:
+        return MaterialPageRoute(
+          builder: (context) => const MyOrdersScreen(),
+        );
+      case RouteNames.orderPlacedScreen:
+        final args = settings.arguments as OrderPlacedScreenArguementModel;
+        return MaterialPageRoute(
+          builder: (context) => OrderPlacedScreen(
+            orderId: args.orderId,
+          ),
+        );
+      case RouteNames.orderDetailsScreen:
+        final args = settings.arguments as OrderDetailsArguementModel;
+        return MaterialPageRoute(
+          builder: (context) => OrderDetailsScreen(
+            orderIndex: args.orderIndex,
+            orderId: args.orderId,
+          ),
+        );
+
+      case RouteNames.orderSummaryScreen:
+        final args = settings.arguments as OrderSummaryArguementModel;
+        return MaterialPageRoute(
+          builder: (context) => OrderSummeryScreen(
+            addressId: args.addressId,
+            screenCheck: args.screenCheck,
+            cartId: args.cartId,
+            productId: args.productId,
           ),
         );
 

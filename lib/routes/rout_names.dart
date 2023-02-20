@@ -16,6 +16,8 @@ class RouteNames {
   static const paymentScreen = 'payments';
   static const addressScreen = 'address';
   static const orderScreen = 'orders';
-  static const confirmOrderScreen = 'confirmOrder';
+  static const orderPlacedScreen = 'orderPlaced';
+  static const orderDetailsScreen = 'orderDetailsScreen';
   static const addNewAddressScreen = 'newAddress';
+  static const searchScreen = 'search';
 }

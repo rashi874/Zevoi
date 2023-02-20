@@ -8,8 +8,8 @@ class DetailsPrice extends StatelessWidget {
     required this.text1,
     required this.text2,
     this.fontWeight = FontWeight.normal,
-    this.color1 = AppColors.whiteColor,
-    this.color2 = AppColors.whiteColor,
+    this.color1 = AppColors.blackcolor,
+    this.color2 = AppColors.blackcolor,
     this.rupeeSymbol = false,
   });
   final String text1;
